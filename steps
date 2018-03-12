@@ -1,0 +1,18 @@
+
+-- Database steps
+sudo su - postgres
+psql
+CREATE DATABASE tellmestuff;
+CREATE USER admin WITH PASSWORD 'ffutsemllet';
+ALTER ROLE admin SET client_encoding TO 'utf8';
+ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
+ALTER ROLE admin SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE TellMeStuff TO admin;
+\q
+exit
+
+-- Django steps
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py createsuperuser
+-- nathan admin123456789

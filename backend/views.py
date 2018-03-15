@@ -2,10 +2,10 @@ from django.shortcuts import render
 import json
 
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_POST
 
-@csrf_exempt
+@csrf_protect
 @require_POST
 def dialogflow(request):
     json_data = request.body

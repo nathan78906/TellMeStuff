@@ -8,7 +8,6 @@ from django.utils.decorators import method_decorator
 
 @csrf_exempt
 @require_POST
-@method_decorator(csrf_exempt)
 def dialogflow(request):
     json_data = request.body
     print(json_data)

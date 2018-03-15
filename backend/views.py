@@ -5,7 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_POST
 
-@csrf_protect
+@csrf_exempt
 @require_POST
 def dialogflow(request):
     json_data = request.body

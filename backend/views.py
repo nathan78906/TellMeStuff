@@ -14,5 +14,3 @@ def dialogflow(request):
     #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     return response
 
-
-

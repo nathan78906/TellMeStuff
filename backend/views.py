@@ -29,7 +29,7 @@ def dialogflow(request):
     string += "\nWith a high of " + forecast.high() + " C"
     string += "\nand a low of " + forecast.low() + " C"
 
-    response = JsonResponse("messages": [{"platform": "facebook","speech": string,"type": 0}])
+    response = JsonResponse({"messages": [{"platform": "facebook","speech": string,"type": 0}]})
     #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
 
     #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})

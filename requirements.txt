@@ -4,3 +4,4 @@ psycopg2==2.7.4
 gunicorn
 django-webpack-loader==0.6.0
 weather-api
+django-allauth

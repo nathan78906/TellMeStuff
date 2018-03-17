@@ -41,3 +41,6 @@ def home(request):
 
 def index(request):
     return render(request, 'backend/index.html')
+
+def signup(request):
+    return render(request, 'backend/signup.html')

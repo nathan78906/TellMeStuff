@@ -68,6 +68,12 @@ header.masthead h1 {
   padding-bottom: 7rem;
 }
 
+.signup{
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  height: 100%;
+}
+
 .features-icons .features-icons-item {
   max-width: 20rem;
 }

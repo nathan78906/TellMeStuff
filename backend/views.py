@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 from weather import Weather, Unit
 
@@ -35,5 +35,9 @@ def dialogflow(request):
     #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     return response
 
+def home(request):
+    response = JsonResponse({"hi": "ayy"})
+    return response
 
-
+def index(request):
+    return render(request, 'index.html')

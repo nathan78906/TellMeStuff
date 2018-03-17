@@ -7,4 +7,4 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

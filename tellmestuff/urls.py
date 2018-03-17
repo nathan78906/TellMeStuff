@@ -23,4 +23,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('backend.urls')),
     url(r'^accounts/', include('allauth.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

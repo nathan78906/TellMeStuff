@@ -63,14 +63,18 @@ header.masthead h1 {
   }
 }
 
+.form-title{
+  margin-bottom: 1rem;
+}
+
 .features-icons {
   padding-top: 7rem;
   padding-bottom: 7rem;
 }
 
 .signup{
-  padding-top: 8rem;
-  padding-bottom: 22rem;
+  padding-top: 6rem;
+  padding-bottom: 20rem;
   height: 100%;
 }
 

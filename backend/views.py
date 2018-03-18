@@ -70,15 +70,8 @@ def api_signin(request):
 
 @csrf_exempt
 def api_logout(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
-    username = body['username']
-    password = body['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse("Invalid credentials", status=401)
+    logout(request)
+    return redirect("/")
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^api/signup/', views.api_signup, name='api_signup'),
     url(r'^api/signin/', views.api_signin, name='api_signin'),
+    url(r'^api/logout/', views.api_logout, name='api_logout'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
 
 ]

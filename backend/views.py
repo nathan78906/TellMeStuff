@@ -67,6 +67,18 @@ def api_signin(request):
     else:
         return HttpResponse("Invalid credentials", status=401)
 
+@csrf_exempt
+def api_logout(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    username = body['username']
+    password = body['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse("Invalid credentials", status=401)
+
 def home(request):
     response = JsonResponse({"hi": "ayy"})
     return response
@@ -79,3 +91,6 @@ def signup(request):
 
 def signin(request):
     return render(request, 'backend/signin.html')    
+
+def dashboard(request):
+    return render(request, 'backend/dashboard.html')  

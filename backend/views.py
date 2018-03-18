@@ -5,6 +5,8 @@ from weather import Weather, Unit
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout, get_user
 
 @csrf_exempt
 @require_POST
@@ -35,6 +37,36 @@ def dialogflow(request):
     #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     return response
 
+@csrf_exempt
+def api_signup(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    username = body['username']
+    password = body['password']
+    password_confirm = body['password_confirm']
+    if password != password_confirm:
+        return HttpResponse("Passwords do not match", status=422) 
+    try:
+      user = User.objects.create_user(username=username, password=password)
+      user.save()
+    except:
+      return HttpResponse("Username already exists", status=409)
+    
+    return HttpResponse(status=200)
+
+
+@csrf_exempt
+def api_signin(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    username = body['username']
+    password = body['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse("Invalid credentials", status=401)
+
 def home(request):
     response = JsonResponse({"hi": "ayy"})
     return response
@@ -44,3 +76,6 @@ def index(request):
 
 def signup(request):
     return render(request, 'backend/signup.html')
+
+def signin(request):
+    return render(request, 'backend/signin.html')    

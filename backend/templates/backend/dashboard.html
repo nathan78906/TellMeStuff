@@ -33,6 +33,9 @@
           
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
+                  <div class = "description">
+                    <label class = "mb-2">Tells you the current weather of the entered city</label>
+                  </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active">
                           <input type="radio" name="options" id="Off_weather" autocomplete="off" checked> Off
@@ -43,7 +46,7 @@
                     </div>
                     <form id="locationform">{% csrf_token %}
                         <div class="form-group">
-                          <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
+                          <input class="form-control" name="location" id="userlocation" placeholder="Enter Location" data-toggle="tooltip" title="Enter the weather location (city)!">
                         </div>
                         <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
                     </form>
@@ -61,6 +64,9 @@
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
+                  <div class = "description">
+                    <label class = "mb-2">Tells you the current top 5 posts of the entered subreddit</label>
+                  </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active">
                           <input type="radio" name="options" id="Off_subreddit" autocomplete="off" checked> Off
@@ -71,7 +77,7 @@
                     </div>
                     <form id="subredditform">{% csrf_token %}
                         <div class="form-group">
-                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter Subreddit">
+                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter Subreddit" data-toggle="tooltip" title="Enter the subreddit you want">
                         </div>
                         <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
                     </form>
@@ -88,6 +94,9 @@
               </div>
               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
+                  <div class = "description">
+                    <label class = "mb-2">Tells you Urban dictionary word of the day</label>
+                  </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-primary active">
                           <input type="radio" name="options" id="Off_word" autocomplete="off" checked> Off
@@ -109,6 +118,9 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                   <div class="card-body">
+                  <div class = "description">
+                    <label class = "mb-2">Tells you a random motivational quote</label>
+                  </div>
                       <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn btn-primary active">
                             <input type="radio" name="options" id="Off_motivation" autocomplete="off" checked> Off

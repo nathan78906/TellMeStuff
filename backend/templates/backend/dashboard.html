@@ -1,0 +1,20 @@
+{% extends 'backend/base_loggedin.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block middle_content %}
+    <!-- Icons Grid -->
+    <section class="signin bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h1 class="font-weight-bold form-title">Dashboard Page</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block other_js %}
+<script src="{% static 'backend/js/api.js' %}"></script>
+{% endblock %}

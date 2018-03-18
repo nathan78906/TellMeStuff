@@ -15,7 +15,7 @@
                       document.querySelector('.auth_error').style.display = 'block';
                       document.querySelector('.auth_error').innerHTML = err;
                     }
-                    else window.location = '/';
+                    else window.location = "/dashboard/";
                 });
             }
         }

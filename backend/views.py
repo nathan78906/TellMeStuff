@@ -63,7 +63,8 @@ def api_signin(request):
     password = body['password']
     user = authenticate(username=username, password=password)
     if user is not None:
-        return HttpResponse(status=200)
+        login(request, user)
+        return HttpResponse(status=200) 
     else:
         return HttpResponse("Invalid credentials", status=401)
 

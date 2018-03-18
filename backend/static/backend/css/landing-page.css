@@ -63,6 +63,10 @@ header.masthead h1 {
   }
 }
 
+.navbar-brand{
+  font-size: 2rem;
+}
+
 .form-title{
   margin-bottom: 1rem;
 }
@@ -73,15 +77,13 @@ header.masthead h1 {
 }
 
 .signup{
-  padding-top: 6rem;
-  padding-bottom: 20rem;
-  height: 100%;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .signin{
-  padding-top: 8rem;
-  padding-bottom: 22rem;
-  height: 100%;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .auth_error{

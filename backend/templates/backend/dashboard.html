@@ -6,21 +6,6 @@
     <!-- Icons Grid -->
     <section class="signin bg-light">
       <div class="container">
-        <!-- <div class="col-md-6 offset-md-3">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button class="dropdown-item" type="button">Weather</button>
-              <button class="dropdown-item" type="button">Reddit Top Posts</button>
-              <button class="dropdown-item" type="button">Urban Dictionary Word of The Day</button>
-              <button class="dropdown-item" type="button">Get Motivated</button>
-            </div>
-          </div>
-        </div> -->
-
-
         <div id="accordion">
             <div class="card">
               <div class="card-header" id="headingOne">
@@ -44,13 +29,33 @@
                           <input type="radio" name="options" id="On_weather" autocomplete="off"> On
                         </label>
                     </div>
-                    <form id="locationform">{% csrf_token %}
+                    <form class="mb-4" id="locationform">{% csrf_token %}
                         <div class="form-group">
                           <input class="form-control" name="location" id="userlocation" placeholder="Enter Location" data-toggle="tooltip" title="Enter the weather location (city)!">
                         </div>
                         <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
                     </form>
-                    
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                        Weather Example
+                    </button>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Weather Example</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              Toronto, Canada <br>
+                              Current Temp: -2 C <br>
+                              Condition: Sunny <br>
+                              With a high of 2 C and a low of -3 C
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -133,58 +138,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- *******
-        <div class="mb-4 col-md-6 subscriptions">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Weather
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <form id="locationform">{% csrf_token %}
-                    <div class="form-group">
-                      <label>Weather</label>
-                      <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
-                    </div>
-                    <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-          </div>
-        </div>
-        <div class="mb-4 col-md-6 subscriptions">
-          <form id="redditform">{% csrf_token %}
-            <div class="form-group">
-              <label>Subreddit Top Posts</label>
-              <input class="form-control" name="Subreddit" id="usersubreddit" placeholder="Enter Subreddit">
-            </div>
-            <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-        <div class="mb-4 col-md-6 subscriptions" id = "urbandictionary">
-          <label>Urban Dictionary Word of The Day</label>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-primary active">
-              <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
-            </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="On" autocomplete="off"> On
-            </label>
-          </div>
-        </div>
-        <div class="mb-4 col-md-6 subscriptions" id = "motivation">
-          <label>Get Motivated</label>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-primary active">
-              <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
-            </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="On" autocomplete="off"> On
-            </label>
-          </div>
-        </div>
-        ********** -->
-
-
       </div>
     </section>
 {% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'backend/base_home.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block middle_content %}
+    <!-- Icons Grid -->
+    <section class="signin bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">Weather</button>
+                <button class="dropdown-item" type="button">Reddit Top Posts</button>
+                <button class="dropdown-item" type="button">Urban Dictionary Word of The Day</button>
+                <button class="dropdown-item" type="button">Get Motivated</button>
+              </div>
+            </div>
+            </div>
+          <div class="d-none col-md-6 offset-md-3 subscriptions">
+            <form id="locationform">{% csrf_token %}
+              <div class="form-group">
+                <label>Weather</label>
+                <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
+              </div>
+              <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
+            </form>
+            </div>
+          <div class="d-none col-md-6 offset-md-3 subscriptions">
+            <form id="redditform">{% csrf_token %}
+              <div class="form-group">
+                <label>Subreddit Top Posts</label>
+                <input class="form-control" name="Subreddit" id="usersubreddit" placeholder="Enter Subreddit">
+              </div>
+              <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
+            </form>
+            </div>
+          <div class="d-none col-md-6 offset-md-3 subscriptions" id = "urbandictionary">
+            <label>Urban Dictionary Word of The Day</label>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
+              </label>
+              <label class="btn btn-primary">
+                <input type="radio" name="options" id="On" autocomplete="off"> On
+              </label>
+            </div>
+            </div>
+          <div class="d-none col-md-6 offset-md-3 subscriptions" id = "motivation">
+            <label>Get Motivated</label>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
+              </label>
+              <label class="btn btn-primary">
+                <input type="radio" name="options" id="On" autocomplete="off"> On
+              </label>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block other_js %}
+<script src="{% static 'backend/js/api.js' %}"></script>
+<script src="{% static 'backend/js/signin.js' %}"></script>
+{% endblock %}

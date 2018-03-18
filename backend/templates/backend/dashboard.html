@@ -31,7 +31,7 @@
                     </div>
                     <form class="mb-4" id="locationform">{% csrf_token %}
                         <div class="form-group">
-                          <input class="form-control" name="location" id="userlocation" placeholder="Enter Location" data-toggle="tooltip" title="Enter the weather location (city)!">
+                          <input class="form-control" name="location" id="userlocation" placeholder="Enter a city">
                         </div>
                         <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
                     </form>
@@ -82,7 +82,7 @@
                     </div>
                     <form id="subredditform">{% csrf_token %}
                         <div class="form-group">
-                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter Subreddit" data-toggle="tooltip" title="Enter the subreddit you want">
+                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter the subreddit you want">
                         </div>
                         <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
                     </form>

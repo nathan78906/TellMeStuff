@@ -87,4 +87,7 @@ def signin(request):
     return render(request, 'backend/signin.html')    
 
 def dashboard(request):
-    return render(request, 'backend/dashboard.html')  
+    return render(request, 'backend/dashboard.html') 
+
+def profile(request):
+    return render(request, 'backend/profile.html')

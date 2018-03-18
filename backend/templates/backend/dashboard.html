@@ -6,62 +6,173 @@
     <!-- Icons Grid -->
     <section class="signin bg-light">
       <div class="container">
-        <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button">Weather</button>
-                <button class="dropdown-item" type="button">Reddit Top Posts</button>
-                <button class="dropdown-item" type="button">Urban Dictionary Word of The Day</button>
-                <button class="dropdown-item" type="button">Get Motivated</button>
+        <!-- <div class="col-md-6 offset-md-3">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button class="dropdown-item" type="button">Weather</button>
+              <button class="dropdown-item" type="button">Reddit Top Posts</button>
+              <button class="dropdown-item" type="button">Urban Dictionary Word of The Day</button>
+              <button class="dropdown-item" type="button">Get Motivated</button>
+            </div>
+          </div>
+        </div> -->
+
+
+        <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Weather
+                  </button>
+                </h5>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="options" id="Off_weather" autocomplete="off" checked> Off
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="On_weather" autocomplete="off"> On
+                        </label>
+                    </div>
+                    <form id="locationform">{% csrf_token %}
+                        <div class="form-group">
+                          <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
+                        </div>
+                        <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
+                    </form>
+                    
+                </div>
               </div>
             </div>
-            </div>
-          <div class="d-none col-md-6 offset-md-3 subscriptions">
-            <form id="locationform">{% csrf_token %}
-              <div class="form-group">
-                <label>Weather</label>
-                <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Subreddit Top Posts
+                  </button>
+                </h5>
               </div>
-              <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
-            </form>
-            </div>
-          <div class="d-none col-md-6 offset-md-3 subscriptions">
-            <form id="redditform">{% csrf_token %}
-              <div class="form-group">
-                <label>Subreddit Top Posts</label>
-                <input class="form-control" name="Subreddit" id="usersubreddit" placeholder="Enter Subreddit">
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="options" id="Off_subreddit" autocomplete="off" checked> Off
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="On_subreddit" autocomplete="off"> On
+                        </label>
+                    </div>
+                    <form id="subredditform">{% csrf_token %}
+                        <div class="form-group">
+                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter Subreddit">
+                        </div>
+                        <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
               </div>
-              <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
-            </form>
             </div>
-          <div class="d-none col-md-6 offset-md-3 subscriptions" id = "urbandictionary">
-            <label>Urban Dictionary Word of The Day</label>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-primary active">
-                <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
-              </label>
-              <label class="btn btn-primary">
-                <input type="radio" name="options" id="On" autocomplete="off"> On
-              </label>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Urban Dictionary Word of The Day
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="options" id="Off_word" autocomplete="off" checked> Off
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="options" id="On_word" autocomplete="off"> On
+                        </label>
+                    </div>
+                </div>
+              </div>
             </div>
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Get Motivated
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                  <div class="card-body">
+                      <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="options" id="Off_motivation" autocomplete="off" checked> Off
+                          </label>
+                          <label class="btn btn-primary">
+                            <input type="radio" name="options" id="On_motivation" autocomplete="off"> On
+                          </label>
+                      </div>
+                  </div>
+                </div>
             </div>
-          <div class="d-none col-md-6 offset-md-3 subscriptions" id = "motivation">
-            <label>Get Motivated</label>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-primary active">
-                <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
-              </label>
-              <label class="btn btn-primary">
-                <input type="radio" name="options" id="On" autocomplete="off"> On
-              </label>
-            </div>
+        </div>
+
+        <!-- *******
+        <div class="mb-4 col-md-6 subscriptions">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Weather
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <form id="locationform">{% csrf_token %}
+                    <div class="form-group">
+                      <label>Weather</label>
+                      <input class="form-control" name="location" id="userlocation" placeholder="Enter Location">
+                    </div>
+                    <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
+                </form>
             </div>
           </div>
         </div>
+        <div class="mb-4 col-md-6 subscriptions">
+          <form id="redditform">{% csrf_token %}
+            <div class="form-group">
+              <label>Subreddit Top Posts</label>
+              <input class="form-control" name="Subreddit" id="usersubreddit" placeholder="Enter Subreddit">
+            </div>
+            <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="mb-4 col-md-6 subscriptions" id = "urbandictionary">
+          <label>Urban Dictionary Word of The Day</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="On" autocomplete="off"> On
+            </label>
+          </div>
+        </div>
+        <div class="mb-4 col-md-6 subscriptions" id = "motivation">
+          <label>Get Motivated</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="options" id="Off" autocomplete="off" checked> Off
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="On" autocomplete="off"> On
+            </label>
+          </div>
+        </div>
+        ********** -->
+
+
       </div>
     </section>
 {% endblock %}

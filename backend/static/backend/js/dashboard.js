@@ -5,7 +5,6 @@
         function submitLocation(){
             if (document.querySelector('#locationform').checkValidity()){
                 var location = document.querySelector("#userlocation").value;
-                console.log(api);
                 api.setLocation(location, function(err, res){
                     if (err) {
                         document.querySelector('.location_error').style.display = 'block';

@@ -80,7 +80,6 @@ def set_location(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     location = body['location']
-    print(request.user)
     if Weather.objects.filter(user = request.user).exists():
         entry = Weather.objects.get(user = request.user)
         entry.location = location

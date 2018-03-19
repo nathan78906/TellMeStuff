@@ -3,6 +3,7 @@ import json
 from weather import Weather, Unit
 
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
@@ -86,8 +87,10 @@ def signup(request):
 def signin(request):
     return render(request, 'backend/signin.html')    
 
+@login_required
 def dashboard(request):
     return render(request, 'backend/dashboard.html') 
 
+@login_required
 def profile(request):
     return render(request, 'backend/profile.html')

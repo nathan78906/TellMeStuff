@@ -22,10 +22,10 @@
                     <label class = "mb-2">Tells you the current weather of the entered city</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-primary active">
+                        <label class="btn btn-warning active">
                           <input type="radio" name="options" id="Off_weather" autocomplete="off" checked> Off
                         </label>
-                        <label class="btn btn-primary">
+                        <label class="btn btn-warning">
                           <input type="radio" name="options" id="On_weather" autocomplete="off"> On
                         </label>
                     </div>
@@ -35,6 +35,8 @@
                         </div>
                         <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
                     </form>
+                    <div class="alert alert-danger location_error" role="alert"></div>
+                    <div class="alert alert-success location_success" role="success"></div>                    
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
                         Weather Example
                     </button>
@@ -144,4 +146,5 @@
 
 {% block other_js %}
 <script src="{% static 'backend/js/api.js' %}"></script>
+<script src="{% static 'backend/js/dashboard.js' %}"></script>
 {% endblock %}

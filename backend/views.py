@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
+from .models import Weather, Profile
 
 @csrf_exempt
 @require_POST
@@ -73,6 +74,26 @@ def api_signin(request):
 def api_logout(request):
     logout(request)
     return redirect("/")
+
+@csrf_exempt
+def set_location(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    location = body['location']
+    print(request.user)
+    if Weather.objects.filter(user = request.user).exists():
+        entry = Weather.objects.get(user = request.user)
+        entry.location = location
+        entry.save()
+        return HttpResponse(status=200)
+    else:
+        try:
+            weather_entry = Weather(user=request.user, location=location)
+            weather_entry.save()
+            return HttpResponse(status=200)            
+        except:
+            return HttpResponse("Internal server error", status=500)
+        
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

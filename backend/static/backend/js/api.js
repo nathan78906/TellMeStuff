@@ -30,6 +30,10 @@ var api = (function(){
     module.signup = function (username, password, password_confirm, callback){
         send("POST", "/api/signup/", {username: username, password: password, password_confirm: password_confirm}, callback);
     }
+
+    module.setLocation = function (location, callback){
+        send("POST", "/api/location/", {location: location}, callback);
+    }
     
     return module;
 })();

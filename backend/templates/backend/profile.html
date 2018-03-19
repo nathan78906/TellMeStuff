@@ -9,6 +9,8 @@
             <div class="row">
             <div class="col-md-6">
                 <h1 class="font-weight-bold form-title">Profile Settings</h1>
+                {% load socialaccount %}
+                <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
             </div>
             </div>
         </div>

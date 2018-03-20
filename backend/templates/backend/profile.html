@@ -11,10 +11,9 @@
             <div class="row">
             <div class="col-md-4">
                 <h1 class="font-weight-bold form-title">Profile Settings</h1>
-                {% load socialaccount %}
-                <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-block btn-social btn-facebook btn-primary" text-align:center">
+                <a href="" class="btn btn-block btn-social btn-facebook btn-primary" id="fblogin" text-align:center">
                   <span class="fa fa-facebook mr-3"></span>
-                    Sign in with Facebook
+                    Sign in with Facebook Messenger
                  </a>
             </div>
             </div>
@@ -24,5 +23,6 @@
 
 {% block other_js %}
 <script src="{% static 'backend/js/api.js' %}"></script>
+<script src="{% static 'backend/js/profile.js' %}"></script>
 {% endblock %}
 

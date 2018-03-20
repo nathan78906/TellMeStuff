@@ -40,6 +40,10 @@ var api = (function(){
         send("POST", "/api/subreddit/", {subreddit: subreddit}, callback);
     }
 
+    module.getSubreddit = function(callback){
+        send("GET", "/api/subreddit/", null, callback);
+    }
+
     module.toggle = function (type, action, callback){
         send("PATCH", "/api/toggle/", {type: type, action: action}, callback);
     }

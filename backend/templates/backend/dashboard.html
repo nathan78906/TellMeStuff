@@ -75,16 +75,16 @@
                     <label class = "mb-2">Tells you the current top 5 posts of the entered subreddit</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-primary active" id="off_subreddit">
+                        <label class="btn btn-warning" id="off_subreddit">
                           <input type="radio" name="options_subreddit" autocomplete="off" checked> Off
                         </label>
-                        <label class="btn btn-primary" id="on_subreddit">
+                        <label class="btn btn-warning" id="on_subreddit">
                           <input type="radio" name="options_subreddit" autocomplete="off"> On
                         </label>
                     </div>
                     <form id="subredditform">{% csrf_token %}
                         <div class="form-group">
-                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="Enter the subreddit you want">
+                          <input class="form-control" name="subreddit" id="usersubreddit" placeholder="">
                         </div>
                         <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
                     </form>

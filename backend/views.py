@@ -119,22 +119,29 @@ def set_location(request):
             return HttpResponse("Internal server error", status=500)
 
 @csrf_exempt
-def set_subreddit(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
-    subreddit = body['subreddit']
-    if Subreddit.objects.filter(user = request.user).exists():
-        entry = Subreddit.objects.get(user = request.user)
-        entry.subreddit = subreddit
-        entry.save()
-        return JsonResponse({"subreddit": subreddit})
-    else:
-        try:
-            subreddit_entry = Subreddit(user=request.user, subreddit=subreddit)
-            subreddit_entry.save()
-            return JsonResponse({"subreddit": subreddit})            
-        except:
-            return HttpResponse("Internal server error", status=500)
+def subreddit(request):
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        subreddit = body['subreddit']
+        if Subreddit.objects.filter(user = request.user).exists():
+            entry = Subreddit.objects.get(user = request.user)
+            entry.subreddit = subreddit
+            entry.save()
+            return JsonResponse({"subreddit": subreddit})
+        else:
+            try:
+                subreddit_entry = Subreddit(user=request.user, subreddit=subreddit)
+                subreddit_entry.save()
+                return JsonResponse({"subreddit": subreddit})            
+            except:
+                return HttpResponse("Internal server error", status=500)
+    elif request.method == "GET":
+        if Subreddit.objects.filter(user = request.user).exists():
+            entry = Subreddit.objects.get(user = request.user)
+            return JsonResponse({"subreddit": entry.subreddit, "active": entry.active})
+        else:
+            return JsonResponse({"subreddit": "", "active": ""})
         
 def phonenumber(request):
     if request.method == "PATCH":
@@ -184,6 +191,14 @@ def toggle(request):
                     return JsonResponse({"type": toggle_type, "action": action})             
                 except:
                     return HttpResponse("Internal server error", status=400)
+        elif toggle_type == "subreddit":
+            if Subreddit.objects.filter(user = request.user).exists():
+                entry = Subreddit.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                return HttpResponse("Please submit a subreddit first", status=400)
 
 def user(request):
     return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})

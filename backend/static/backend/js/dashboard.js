@@ -82,6 +82,30 @@
         });
     }
 
+    function checkSubreddit(){
+        api.getSubreddit (function(err, res){
+            if (err) console.log(err);
+            if (res.subreddit != ""){
+                if (res.active == true){
+                    document.querySelector('#off_subreddit').setAttribute("class", "btn btn-warning");
+                    document.querySelector('#on_subreddit').setAttribute("class","btn btn-warning active");
+                    document.querySelector('#usersubreddit').placeholder = res.subreddit;
+                }
+                else if (res.active == false){
+                    document.querySelector('#on_subreddit').setAttribute("class", "btn btn-warning");
+                    document.querySelector('#off_subreddit').setAttribute("class","btn btn-warning active");
+                    document.querySelector('#usersubreddit').placeholder = res.subreddit;               
+                }
+            }
+            else{
+                document.querySelector('#off_subreddit').setAttribute("class","btn btn-warning active");
+                document.querySelector('#usersubreddit').placeholder = "Enter a subreddit:";               
+                              
+            }
+            
+        });
+    }
+
     function insertQuote(motivation){
         var element = document.createElement('div');
         element.innerHTML = `
@@ -108,6 +132,7 @@
 
         checkWeather();
         checkMotivation();
+        checkSubreddit();
 
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
@@ -147,7 +172,7 @@
         });
 
         document.getElementById('off_subreddit').addEventListener('click', function(){
-            api.toggle("weather", "False", function(err, res){
+            api.toggle("subreddit", "False", function(err, res){
                 if (err) console.log(err);
             });
         });
@@ -159,7 +184,7 @@
         });
       
         document.getElementById('on_subreddit').addEventListener('click', function(){
-            api.toggle("weather", "True", function(err, res){
+            api.toggle("subreddit", "True", function(err, res){
                 if (err) console.log(err);
             });
         });

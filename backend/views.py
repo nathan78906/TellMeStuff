@@ -34,7 +34,7 @@ def dialogflow(request):
                 return HttpResponse(status=200)            
             except:
                 return HttpResponse("Internal server error", status=500)
-    elif Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
+    elif Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
         username = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user.username
         welcome = "Here's stuff for " + username
 

@@ -35,6 +35,11 @@ var api = (function(){
         send("POST", "/api/location/", {location: location}, callback);
     }
 
+    module.setSubreddit = function(subreddit, callback){
+        console.log(subreddit)
+        send("POST", "/api/subreddit/", {subreddit: subreddit}, callback);
+    }
+
     module.toggle = function (type, action, callback){
         send("PATCH", "/api/toggle/", {type: type, action: action}, callback);
     }
@@ -49,6 +54,18 @@ var api = (function(){
 
     module.getWeather = function(callback){
         send("GET", "/api/getWeather/", null, callback);
+    }
+
+    module.getUser = function(callback){
+        send("GET", "/api/user/", null, callback);
+    }
+
+    module.setPhoneNumber = function (phone_number, callback){
+        send("PATCH", "/api/phonenumber/", {phone_number: phone_number}, callback);
+    }
+
+    module.getPhoneNumber = function (callback){
+        send("GET", "/api/phonenumber/", null, callback);
     }
     
     return module;

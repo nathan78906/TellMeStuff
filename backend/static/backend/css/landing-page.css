@@ -91,12 +91,7 @@ header.masthead h1 {
   display: none;
 }
 
-.location_error{
-  margin-top: 1rem;
-  display: none;
-}
-
-.location_success{
+.message{
   margin-top: 1rem;
   display: none;
 }

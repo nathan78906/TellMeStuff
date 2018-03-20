@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect
 import json
 from weather import Weather as WeatherApi, Unit
 import requests
-
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
-from .models import Weather, Profile, Motivation
+
+from .models import Weather, Profile, Subreddit, Motivation
+
+from .services import get_weather
+
 
 @csrf_exempt
 @require_POST
@@ -37,30 +40,19 @@ def dialogflow(request):
                 return HttpResponse("Internal server error", status=500)
 
     elif Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
-        username = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user.username
+        user = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user
+        username = user.username
         welcome = "Here's stuff for " + username
 
-        weather = WeatherApi(unit=Unit.CELSIUS)
+        if Weather.objects.filter(user=user).exists():
+            if Weather.objects.get(user=user).active:
+                city = Weather.objects.get(user=user).location
+                result = get_weather(city)
+                response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": result,"type": 0}]})
 
-        # Lookup via location name.
+                #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
 
-        location = weather.lookup_by_location('toronto')
-        condition = location.condition()
-
-        # Get weather forecasts for the upcoming days.
-
-        string = location.location().city() + "," + location.location().country()
-        string += "\nCurrent Temp: " + condition.temp() + " C"
-
-        forecast = location.forecast()[0]
-        string += "\nCondition: " + (forecast.text())
-        string += "\nWith a high of " + forecast.high() + " C"
-        string += "\nand a low of " + forecast.low() + " C"
-
-        response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": string,"type": 0}]})
-        #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
-
-        #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+                #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     else:
         response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
@@ -109,6 +101,10 @@ def set_location(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     location = body['location']
+    try:
+        get_weather(location)
+    except:
+        return HttpResponse("Invalid location", status=400)
     if Weather.objects.filter(user = request.user).exists():
         entry = Weather.objects.get(user = request.user)
         entry.location = location
@@ -121,7 +117,44 @@ def set_location(request):
             return JsonResponse({"location": location})            
         except:
             return HttpResponse("Internal server error", status=500)
+
+@csrf_exempt
+def set_subreddit(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    subreddit = body['subreddit']
+    if Subreddit.objects.filter(user = request.user).exists():
+        entry = Subreddit.objects.get(user = request.user)
+        entry.subreddit = subreddit
+        entry.save()
+        return JsonResponse({"subreddit": subreddit})
+    else:
+        try:
+            subreddit_entry = Subreddit(user=request.user, subreddit=subreddit)
+            subreddit_entry.save()
+            return JsonResponse({"subreddit": subreddit})            
+        except:
+            return HttpResponse("Internal server error", status=500)
         
+def phonenumber(request):
+    if request.method == "PATCH":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        phone_number = body['phone_number']
+        try:
+            profile_entry = Profile.objects.get(user=request.user)
+            profile_entry.phone_number = phone_number
+            profile_entry.save()
+            return JsonResponse({"phone_number": phone_number})
+        except:
+            return HttpResponse("Internal server error", status=500)
+    elif request.method == "GET":
+        if Profile.objects.filter(user=request.user).exists():
+            entry = Profile.objects.get(user=request.user)
+            return JsonResponse({"phone_number": entry.phone_number})
+        else:
+            return JsonResponse({"phone_number": ""})
+       
 
 @csrf_exempt
 def toggle(request):
@@ -151,6 +184,9 @@ def toggle(request):
                     return JsonResponse({"type": toggle_type, "action": action})             
                 except:
                     return HttpResponse("Internal server error", status=400)
+
+def user(request):
+    return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
 
 def getWeather(request):
     if Weather.objects.filter(user = request.user).exists():
@@ -182,9 +218,13 @@ def index(request):
     return render(request, 'backend/index.html')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect("/dashboard/")
     return render(request, 'backend/signup.html')
 
 def signin(request):
+    if request.user.is_authenticated:
+        return redirect("/dashboard/")
     return render(request, 'backend/signin.html')    
 
 @login_required

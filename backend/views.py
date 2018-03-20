@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import json
-from weather import Weather, Unit
+from weather import Weather as WeatherApi, Unit
 
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -16,7 +16,7 @@ def dialogflow(request):
     json_data = request.body
     print(json_data)
 
-    weather = Weather(unit=Unit.CELSIUS)
+    weather = WeatherApi(unit=Unit.CELSIUS)
 
     # Lookup via location name.
 

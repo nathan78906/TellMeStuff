@@ -41,13 +41,14 @@ def dialogflow(request):
         welcome = "Here's stuff for " + username
 
         if Weather.objects.filter(user=user).exists():
-            city = Weather.objects.get(user=user).location
-            result = get_weather(city)
-            response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": result,"type": 0}]})
+            if Weather.objects.get(user=user).active:
+                city = Weather.objects.get(user=user).location
+                result = get_weather(city)
+                response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": result,"type": 0}]})
 
-            #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
+                #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
 
-            #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+                #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     else:
         response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response

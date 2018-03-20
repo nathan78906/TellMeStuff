@@ -21,6 +21,7 @@ def dialogflow(request):
     if body["result"]["resolvedQuery"] == "FACEBOOK_WELCOME":
         # get user that matches userID
         user_id = int(body["originalRequest"]["data"]["postback"]["referral"]["ref"])
+        print(user_id)
         user = User.objects.get(pk=user_id)
         if Profile.objects.filter(user=user).exists():
             entry = Weather.objects.get(user=user)

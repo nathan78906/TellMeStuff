@@ -5,7 +5,7 @@ var api = (function(){
         var xhr = new XMLHttpRequest();
         xhr.onload = function() {
             if (xhr.status !== 200) callback("[" + xhr.status + "] " + xhr.responseText, null);
-            else callback(null, xhr.responseText);
+            else callback(null, JSON.parse(xhr.responseText));
         };
         xhr.open(method, url, true);
         if (!data) xhr.send();
@@ -33,6 +33,14 @@ var api = (function(){
 
     module.setLocation = function (location, callback){
         send("POST", "/api/location/", {location: location}, callback);
+    }
+
+    module.toggle = function (type, action, callback){
+        send("PATCH", "/api/toggle/", {type: type, action: action}, callback);
+    }
+
+    module.getWeather = function(callback){
+        send("GET", "/api/getWeather/", null, callback);
     }
     
     return module;

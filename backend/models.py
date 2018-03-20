@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Weather(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     location = models.CharField(max_length=50)
+    active = models.BooleanField(default=False)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)

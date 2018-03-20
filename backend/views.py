@@ -64,6 +64,7 @@ def dialogflow(request):
     return response
 
 @csrf_exempt
+@require_POST
 def api_signup(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -77,11 +78,13 @@ def api_signup(request):
       user.save()
     except:
       return HttpResponse("Username already exists", status=409)
-    
-    return HttpResponse(status=200)
+    user_auth = authenticate(username=username, password=password)
+    login(request, user_auth)
+    return JsonResponse({"username": username})
 
 
 @csrf_exempt
+@require_POST
 def api_signin(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -90,7 +93,7 @@ def api_signin(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return HttpResponse(status=200) 
+        return JsonResponse({"username": username})
     else:
         return HttpResponse("Invalid credentials", status=401)
 
@@ -108,15 +111,39 @@ def set_location(request):
         entry = Weather.objects.get(user = request.user)
         entry.location = location
         entry.save()
-        return HttpResponse(status=200)
+        return JsonResponse({"location": location})
     else:
         try:
             weather_entry = Weather(user=request.user, location=location)
             weather_entry.save()
-            return HttpResponse(status=200)            
+            return JsonResponse({"location": location})            
         except:
             return HttpResponse("Internal server error", status=500)
         
+
+@csrf_exempt
+def toggle(request):
+    if request.method == "PATCH":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        action = body['action']
+        toggle_type = body['type']    
+        if toggle_type == "weather":
+            if Weather.objects.filter(user = request.user).exists():
+                entry = Weather.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                return HttpResponse("Please submit a location first", status=400)
+
+def getWeather(request):
+    if Weather.objects.filter(user = request.user).exists():
+        entry = Weather.objects.get(user = request.user)
+        return JsonResponse({"location": entry.location, "active": entry.active})
+    else:
+        return JsonResponse({"location": "", "active": ""})
+
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

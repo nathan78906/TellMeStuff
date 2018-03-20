@@ -109,7 +109,27 @@ def set_location(request):
             return JsonResponse({"location": location})            
         except:
             return HttpResponse("Internal server error", status=500)
-        
+
+@csrf_exempt
+def phonenumber(request):
+    if request.method == "PATCH":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        phone_number = body['phone_number']
+        try:
+            profile_entry = Profile.objects.get(user=request.user)
+            profile_entry.phone_number = phone_number
+            profile_entry.save()
+            return JsonResponse({"phone_number": phone_number})
+        except:
+            return HttpResponse("Internal server error", status=500)
+    elif request.method == "GET":
+        if Profile.objects.filter(user=request.user).exists():
+            entry = Profile.objects.get(user=request.user)
+            return JsonResponse({"phone_number": entry.phone_number})
+        else:
+            return JsonResponse({"phone_number": ""})
+       
 
 @csrf_exempt
 def toggle(request):

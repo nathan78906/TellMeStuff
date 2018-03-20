@@ -33,7 +33,9 @@
                 }
             }
             else{
-                document.querySelector('#off_weather').setAttribute("class","btn btn-warning active");                
+                document.querySelector('#off_weather').setAttribute("class","btn btn-warning active");
+                document.querySelector('#userlocation').placeholder = "Enter your city:";               
+                              
             }
             
         });

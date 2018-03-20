@@ -1,5 +1,7 @@
 from weather import Weather as WeatherApi, Unit
 import requests
+import praw
+from django.conf import settings
 
 def get_weather(city):
     weather = WeatherApi(unit=Unit.CELSIUS)
@@ -25,4 +27,18 @@ def get_quote():
     quote = word_content["quoteText"]
     author = word_content["quoteAuthor"]
     body = quote + "\n -" + author
+    return body
+
+def get_subreddit(sr):
+    reddit = praw.Reddit(client_id=settings.REDDIT_CLIENT_ID, client_secret= settings.REDDIT_CLIENT_SECRET,
+                         user_agent= settings.REDDIT_AUTH_AGENT)
+
+    subreddit = reddit.subreddit(sr).top('day', limit=3)
+    body = ''
+    for x in subreddit:
+        y = (x.title)
+        z = (x.url)
+        body += (y + '\n' + z + '\n')
+
+    body = body.rstrip()
     return body

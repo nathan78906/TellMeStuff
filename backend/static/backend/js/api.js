@@ -42,6 +42,10 @@ var api = (function(){
     module.getWeather = function(callback){
         send("GET", "/api/getWeather/", null, callback);
     }
+
+    module.getUser = function(callback){
+        send("GET", "/api/user/", null, callback);
+    }
     
     return module;
 })();

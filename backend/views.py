@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 import json
-from weather import Weather as WeatherApi, Unit
 
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -9,6 +8,8 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
 from .models import Weather, Profile
+
+from .services import get_weather
 
 @csrf_exempt
 @require_POST
@@ -35,30 +36,18 @@ def dialogflow(request):
             except:
                 return HttpResponse("Internal server error", status=500)
     elif Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
-        username = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user.username
+        user = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user
+        username = user.username
         welcome = "Here's stuff for " + username
 
-        weather = WeatherApi(unit=Unit.CELSIUS)
+        if Weather.objects.filter(user=user).exists():
+            city = Weather.objects.get(user=user).location
+            result = get_weather(city)
+            response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": result,"type": 0}]})
 
-        # Lookup via location name.
+            #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
 
-        location = weather.lookup_by_location('toronto')
-        condition = location.condition()
-
-        # Get weather forecasts for the upcoming days.
-
-        string = location.location().city() + "," + location.location().country()
-        string += "\nCurrent Temp: " + condition.temp() + " C"
-
-        forecast = location.forecast()[0]
-        string += "\nCondition: " + (forecast.text())
-        string += "\nWith a high of " + forecast.high() + " C"
-        string += "\nand a low of " + forecast.low() + " C"
-
-        response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": string,"type": 0}]})
-        #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
-
-        #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+            #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     else:
         response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
@@ -137,6 +126,9 @@ def toggle(request):
             else:
                 return HttpResponse("Please submit a location first", status=400)
 
+def user(request):
+    return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
+
 def getWeather(request):
     if Weather.objects.filter(user = request.user).exists():
         entry = Weather.objects.get(user = request.user)
@@ -153,9 +145,13 @@ def index(request):
     return render(request, 'backend/index.html')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect("/dashboard/")
     return render(request, 'backend/signup.html')
 
 def signin(request):
+    if request.user.is_authenticated:
+        return redirect("/dashboard/")
     return render(request, 'backend/signin.html')    
 
 @login_required

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import json
 from weather import Weather as WeatherApi, Unit
+import requests
 
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
-from .models import Weather, Profile
+from .models import Weather, Profile, Motivation
 
 @csrf_exempt
 @require_POST
@@ -34,6 +35,7 @@ def dialogflow(request):
                 return HttpResponse(status=200)            
             except:
                 return HttpResponse("Internal server error", status=500)
+
     elif Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
         username = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user.username
         welcome = "Here's stuff for " + username
@@ -136,6 +138,14 @@ def toggle(request):
                 return JsonResponse({"type": toggle_type, "action": action})
             else:
                 return HttpResponse("Please submit a location first", status=400)
+        elif toggle_type == "motivation":
+            if Motivation.objects.filter(user = request.user).exists():
+                entry = Motivation.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                return HttpResponse("Error", status=400)
 
 def getWeather(request):
     if Weather.objects.filter(user = request.user).exists():
@@ -144,6 +154,20 @@ def getWeather(request):
     else:
         return JsonResponse({"location": "", "active": ""})
 
+def getQuote(request):
+    quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en")
+    word_content = quotex.json()
+    quote = word_content["quoteText"]
+    author = word_content["quoteAuthor"]
+    body = quote + "\n -" + author
+    return JsonResponse({"content": body})
+
+def getMotivation(request):
+    if Motivation.objects.filter(user = request.user).exists():
+        entry = Motivation.objects.get(user = request.user)
+        return JsonResponse({"active": entry.active})
+    else:
+        return JsonResponse({"active": ""})
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

@@ -39,6 +39,14 @@ var api = (function(){
         send("PATCH", "/api/toggle/", {type: type, action: action}, callback);
     }
 
+    module.getQuote = function (callback){
+        send("GET", "/api/getQuote/", null, callback)
+    }
+
+    module.getMotivation = function (callback){
+        send("GET", "/api/getMotivation/", null, callback)
+    }
+
     module.getWeather = function(callback){
         send("GET", "/api/getWeather/", null, callback);
     }

@@ -15,3 +15,6 @@ class Profile(models.Model):
     slack_id = models.CharField(max_length=100, default=None, null=True)
     twitter_id = models.CharField(max_length=100, default=None, null=True)
         
+class Motivation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    active = models.BooleanField(default=False)

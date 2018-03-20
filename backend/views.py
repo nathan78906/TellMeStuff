@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
-from .models import Weather, Profile
+from .models import Weather, Profile, Subreddit
 
 from .services import get_weather
 
@@ -97,6 +97,10 @@ def set_location(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     location = body['location']
+    try:
+        get_weather(location)
+    except:
+        return HttpResponse("Invalid location", status=400)
     if Weather.objects.filter(user = request.user).exists():
         entry = Weather.objects.get(user = request.user)
         entry.location = location
@@ -109,7 +113,44 @@ def set_location(request):
             return JsonResponse({"location": location})            
         except:
             return HttpResponse("Internal server error", status=500)
+
+@csrf_exempt
+def set_subreddit(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    subreddit = body['subreddit']
+    if Subreddit.objects.filter(user = request.user).exists():
+        entry = Subreddit.objects.get(user = request.user)
+        entry.subreddit = subreddit
+        entry.save()
+        return JsonResponse({"subreddit": subreddit})
+    else:
+        try:
+            subreddit_entry = Subreddit(user=request.user, subreddit=subreddit)
+            subreddit_entry.save()
+            return JsonResponse({"subreddit": subreddit})            
+        except:
+            return HttpResponse("Internal server error", status=500)
         
+def phonenumber(request):
+    if request.method == "PATCH":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        phone_number = body['phone_number']
+        try:
+            profile_entry = Profile.objects.get(user=request.user)
+            profile_entry.phone_number = phone_number
+            profile_entry.save()
+            return JsonResponse({"phone_number": phone_number})
+        except:
+            return HttpResponse("Internal server error", status=500)
+    elif request.method == "GET":
+        if Profile.objects.filter(user=request.user).exists():
+            entry = Profile.objects.get(user=request.user)
+            return JsonResponse({"phone_number": entry.phone_number})
+        else:
+            return JsonResponse({"phone_number": ""})
+       
 
 @csrf_exempt
 def toggle(request):

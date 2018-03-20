@@ -13,6 +13,7 @@ from .models import Weather, Profile, Subreddit, Motivation
 
 from .services import get_weather, get_quote
 
+POSSIBLE_SERVICES = [Weather, Motivation]
 
 @csrf_exempt
 @require_POST
@@ -43,16 +44,26 @@ def dialogflow(request):
         user = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user
         username = user.username
         welcome = "Here's stuff for " + username
+        json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
+        
 
         if Weather.objects.filter(user=user).exists():
             if Weather.objects.get(user=user).active:
                 city = Weather.objects.get(user=user).location
                 result = get_weather(city)
-                response = JsonResponse({"messages": [{"platform": "facebook","speech": welcome,"type": 0}, {"platform": "facebook","speech": result,"type": 0}]})
+                json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
 
-                #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
+        if Motivation.objects.filter(user=user).exists():
+            if Motivation.objects.get(user=user).active:
+                result = get_quote()
+                json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+        
+        print(json_ret)
+        response = JsonResponse(json_ret)
 
-                #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+        #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
+
+        #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
     else:
         response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response

@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^api/location/', views.set_location, name='set_location'),
     url(r'^api/subreddit/', views.set_subreddit, name='set_subreddit'),    
     url(r'^api/toggle/', views.toggle, name='toggle'),
-    url(r'^api/getWeather/', views.getWeather, name='getWeather'),    
+    url(r'^api/getWeather/', views.getWeather, name='getWeather'),  
+    url(r'^api/phonenumber/', views.phonenumber, name='phonenumber'),  
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
-
 ]

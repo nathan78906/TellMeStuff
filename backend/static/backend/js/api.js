@@ -51,6 +51,14 @@ var api = (function(){
     module.getUser = function(callback){
         send("GET", "/api/user/", null, callback);
     }
+
+    module.setPhoneNumber = function (phone_number, callback){
+        send("PATCH", "/api/phonenumber/", {phone_number: phone_number}, callback);
+    }
+
+    module.getPhoneNumber = function (callback){
+        send("GET", "/api/phonenumber/", null, callback);
+    }
     
     return module;
 })();

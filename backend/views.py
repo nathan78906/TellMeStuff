@@ -23,14 +23,17 @@ def dialogflow(request):
         user_id = int(body["originalRequest"]["data"]["postback"]["referral"]["ref"])
         user = User.objects.get(pk=user_id)
         if Profile.objects.filter(user=user).exists():
-            entry = Weather.objects.get(user = request.user)
+            entry = Weather.objects.get(user=user)
             entry.facebook_id = body["originalRequest"]["data"]["sender"]["id"]
             entry.save()
             return HttpResponse(status=200)
         else:
             try:
-                profile_entry = Profile(user=user, facebook_id = body["originalRequest"]["data"]["sender"]["id"])
+                print("1")
+                profile_entry = Profile(user=user, facebook_id=body["originalRequest"]["data"]["sender"]["id"])
+                print("2")
                 profile_entry.save()
+                print("3")
                 return HttpResponse(status=200)            
             except:
                 return HttpResponse("Internal server error", status=500)

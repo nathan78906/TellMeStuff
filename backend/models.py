@@ -8,9 +8,9 @@ class Weather(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
-    phone_number = models.CharField(max_length=50, default=None)
-    facebook_id = models.CharField(max_length=100, default=None)
-    google_assistant_id = models.CharField(max_length=100, default=None)
-    slack_id = models.CharField(max_length=100, default=None)
-    twitter_id = models.CharField(max_length=100, default=None)
+    phone_number = models.CharField(max_length=50, default=None, null=True)
+    facebook_id = models.CharField(max_length=100, default=None, null=True)
+    google_assistant_id = models.CharField(max_length=100, default=None, null=True)
+    slack_id = models.CharField(max_length=100, default=None, null=True)
+    twitter_id = models.CharField(max_length=100, default=None, null=True)
         

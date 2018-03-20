@@ -38,7 +38,7 @@ def get_subreddit(sr):
     for x in subreddit:
         y = (x.title)
         z = (x.url)
-        body += (y + '\n' + z + '\n')
+        body += (y + '\n' + z + '\n\n')
 
     body = body.rstrip()
     return body

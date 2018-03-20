@@ -5,3 +5,4 @@ gunicorn
 django-webpack-loader==0.6.0
 weather-api
 django-allauth
+praw

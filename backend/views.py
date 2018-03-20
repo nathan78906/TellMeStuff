@@ -57,6 +57,12 @@ def dialogflow(request):
             if Motivation.objects.get(user=user).active:
                 result = get_quote()
                 json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+
+        if Subreddit.objects.filter(user=user).exists():
+            if Subreddit.objects.get(user=user).active:
+                sr = Subreddit.objects.get(user=user).subreddit
+                result = get_subreddit(sr)
+                json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
         
         print(json_ret)
         response = JsonResponse(json_ret)

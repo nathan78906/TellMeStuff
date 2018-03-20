@@ -83,25 +83,8 @@
     }
 
     function insertQuote(motivation){
-        var element = document.createElement('div');
-        element.innerHTML = `
-        <div class="modal fade" id="exampleMotivation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Motivation Example</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            ${motivation}
-            </div>
-          </div>
-        </div>
-    </div>
-        `;
-        document.querySelector('#motivation_example').prepend(element);
+        var element = document.querySelector('#motivation_example');
+        element.innerHTML = motivation;
     }
 
     window.addEventListener('load', function(){

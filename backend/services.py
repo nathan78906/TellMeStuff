@@ -1,4 +1,5 @@
 from weather import Weather as WeatherApi, Unit
+import requests
 
 def get_weather(city):
     weather = WeatherApi(unit=Unit.CELSIUS)
@@ -17,3 +18,11 @@ def get_weather(city):
     result += "\nCondition: " + (forecast.text())
     result += "\nWith a high of " + forecast.high() + " C" + " and a low of " + forecast.low() + " C"
     return result
+
+def get_quote():
+    quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en")
+    word_content = quotex.json()
+    quote = word_content["quoteText"]
+    author = word_content["quoteAuthor"]
+    body = quote + "\n -" + author
+    return body

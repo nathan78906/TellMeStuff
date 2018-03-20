@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout, get_user
 
 from .models import Weather, Profile, Subreddit, Motivation
 
-from .services import get_weather
+from .services import get_weather, get_quote
 
 
 @csrf_exempt
@@ -196,11 +196,7 @@ def getWeather(request):
         return JsonResponse({"location": "", "active": ""})
 
 def getQuote(request):
-    quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en")
-    word_content = quotex.json()
-    quote = word_content["quoteText"]
-    author = word_content["quoteAuthor"]
-    body = quote + "\n -" + author
+    body = get_quote()
     return JsonResponse({"content": body})
 
 def getMotivation(request):

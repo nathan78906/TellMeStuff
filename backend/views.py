@@ -11,9 +11,8 @@ from django.contrib.auth import authenticate, login, logout, get_user
 
 from .models import Weather, Profile, Subreddit, Motivation
 
-from .services import get_weather, get_quote
+from .services import get_weather, get_quote, get_subreddit
 
-POSSIBLE_SERVICES = [Weather, Motivation]
 
 @csrf_exempt
 @require_POST

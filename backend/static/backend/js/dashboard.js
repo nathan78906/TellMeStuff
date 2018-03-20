@@ -22,12 +22,12 @@
             if (err) console.log(err);
             if (res.active == true || res.active == false){
                 if (res.active == true){
-                    document.querySelector('#off_weather').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#off_weather').setAttribute("class", "btn btn-warning");
                     document.querySelector('#on_weather').setAttribute("class","btn btn-warning active");
                     document.querySelector('#userlocation').placeholder = res.location;
                 }
                 else if (res.active == false){
-                    document.querySelector('#on_weather').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#on_weather').setAttribute("class", "btn btn-warning");
                     document.querySelector('#off_weather').setAttribute("class","btn btn-warning active");
                     document.querySelector('#userlocation').placeholder = res.location;               
                 }

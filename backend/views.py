@@ -145,7 +145,12 @@ def toggle(request):
                 entry.save()
                 return JsonResponse({"type": toggle_type, "action": action})
             else:
-                return HttpResponse("Error", status=400)
+                try:
+                    entry = Motivation(user = request.user, active = action)
+                    entry.save()
+                    return JsonResponse({"type": toggle_type, "action": action})             
+                except:
+                    return HttpResponse("Internal server error", status=400)
 
 def getWeather(request):
     if Weather.objects.filter(user = request.user).exists():

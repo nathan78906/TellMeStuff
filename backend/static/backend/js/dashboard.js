@@ -6,12 +6,32 @@
             var location = document.querySelector("#userlocation").value;
             api.setLocation(location, function(err, res){
                 if (err) {
+                    document.querySelector('.location_success').style.display = 'none';                    
                     document.querySelector('.location_error').style.display = 'block';
                     document.querySelector('.location_error').innerHTML = err;
                 }
                 else {
+                    document.querySelector('.location_error').style.display = 'none';                    
                     document.querySelector('.location_success').style.display = 'block';
-                    document.querySelector('.location_success').innerHTML = "Successfully submited your location!";
+                    document.querySelector('.location_success').innerHTML = "Successfully submitted your location!";
+                }
+            });
+        }
+    }
+
+    function submitSubreddit(){
+        if (document.querySelector('#subredditform').checkValidity()){
+            var subreddit = document.querySelector("#usersubreddit").value;
+            api.setSubreddit(subreddit, function(err, res){
+                if (err) {
+                    document.querySelector('.subreddit_success').style.display = 'none';                                        
+                    document.querySelector('.subreddit_error').style.display = 'block';
+                    document.querySelector('.subreddit_error').innerHTML = err;
+                }
+                else {
+                    document.querySelector('.subreddit_error').style.display = 'none';                                        
+                    document.querySelector('.subreddit_success').style.display = 'block';
+                    document.querySelector('.subreddit_success').innerHTML = "Successfully submitted your subreddit!";
                 }
             });
         }
@@ -57,6 +77,23 @@
         });
 
         document.getElementById('on_weather').addEventListener('click', function(){
+            api.toggle("weather", "True", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.querySelector('#subredditform').addEventListener('submit', function(e){
+            e.preventDefault();
+            submitSubreddit();
+        });
+
+        document.getElementById('off_subreddit').addEventListener('click', function(){
+            api.toggle("weather", "False", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('on_subreddit').addEventListener('click', function(){
             api.toggle("weather", "True", function(err, res){
                 if (err) console.log(err);
             });

@@ -35,6 +35,11 @@ var api = (function(){
         send("POST", "/api/location/", {location: location}, callback);
     }
 
+    module.setSubreddit = function(subreddit, callback){
+        console.log(subreddit)
+        send("POST", "/api/subreddit/", {subreddit: subreddit}, callback);
+    }
+
     module.toggle = function (type, action, callback){
         send("PATCH", "/api/toggle/", {type: type, action: action}, callback);
     }

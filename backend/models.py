@@ -7,6 +7,11 @@ class Weather(models.Model):
     location = models.CharField(max_length=50)
     active = models.BooleanField(default=False)
 
+class Subreddit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    subreddit = models.CharField(max_length=50)
+    active = models.BooleanField(default=False)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     phone_number = models.CharField(max_length=50, default=None, null=True)

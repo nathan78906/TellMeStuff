@@ -23,10 +23,10 @@
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-warning" id="off_weather">
-                          <input type="radio" name="options" id="off_weather_toggle" autocomplete="off"> Off
+                          <input type="radio" name="options" autocomplete="off"> Off
                         </label>
                         <label class="btn btn-warning" id="on_weather">
-                          <input type="radio" name="options" id="on_weather_toggle" autocomplete="off"> On
+                          <input type="radio" name="options" autocomplete="off"> On
                         </label>
                     </div>
                     <form class="mb-4" id="locationform">{% csrf_token %}
@@ -35,8 +35,8 @@
                         </div>
                         <button type="submit" name="action" id="setlocation" class="btn btn-primary">Submit</button>
                     </form>
-                    <div class="alert alert-danger location_error" role="alert"></div>
-                    <div class="alert alert-success location_success" role="success"></div>                    
+                    <div class="alert alert-danger location_error message" role="alert"></div>
+                    <div class="alert alert-success location_success message" role="success"></div>                    
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
                         Weather Example
                     </button>
@@ -75,11 +75,11 @@
                     <label class = "mb-2">Tells you the current top 5 posts of the entered subreddit</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-primary active">
-                          <input type="radio" name="options" id="off_subreddit" autocomplete="off" checked> Off
+                        <label class="btn btn-primary active" id="off_subreddit">
+                          <input type="radio" name="options_subreddit" autocomplete="off" checked> Off
                         </label>
-                        <label class="btn btn-primary">
-                          <input type="radio" name="options" id="on_subreddit" autocomplete="off"> On
+                        <label class="btn btn-primary" id="on_subreddit">
+                          <input type="radio" name="options_subreddit" autocomplete="off"> On
                         </label>
                     </div>
                     <form id="subredditform">{% csrf_token %}
@@ -88,6 +88,8 @@
                         </div>
                         <button type="submit" name="action" id="setsubreddit" class="btn btn-primary">Submit</button>
                     </form>
+                    <div class="alert alert-danger subreddit_error message" role="alert"></div>
+                    <div class="alert alert-success subreddit_success message" role="success"></div>
                 </div>
               </div>
             </div>

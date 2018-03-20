@@ -34,29 +34,33 @@ def dialogflow(request):
                 return HttpResponse(status=200)            
             except:
                 return HttpResponse("Internal server error", status=500)
+    elif Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
+        username = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user.username
+        welcome = "Here's stuff for " + username
 
+        weather = WeatherApi(unit=Unit.CELSIUS)
 
-    weather = WeatherApi(unit=Unit.CELSIUS)
+        # Lookup via location name.
 
-    # Lookup via location name.
+        location = weather.lookup_by_location('toronto')
+        condition = location.condition()
 
-    location = weather.lookup_by_location('toronto')
-    condition = location.condition()
+        # Get weather forecasts for the upcoming days.
 
-    # Get weather forecasts for the upcoming days.
+        string = location.location().city() + "," + location.location().country()
+        string += "\nCurrent Temp: " + condition.temp() + " C"
 
-    string = location.location().city() + "," + location.location().country()
-    string += "\nCurrent Temp: " + condition.temp() + " C"
+        forecast = location.forecast()[0]
+        string += "\nCondition: " + (forecast.text())
+        string += "\nWith a high of " + forecast.high() + " C"
+        string += "\nand a low of " + forecast.low() + " C"
 
-    forecast = location.forecast()[0]
-    string += "\nCondition: " + (forecast.text())
-    string += "\nWith a high of " + forecast.high() + " C"
-    string += "\nand a low of " + forecast.low() + " C"
+        response = JsonResponse({"messages": [{"platform": "facebook","speech": username,"type": 0}, {"platform": "facebook","speech": string,"type": 0}]})
+        #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
 
-    response = JsonResponse({"messages": [{"platform": "facebook","speech": string,"type": 0}]})
-    #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
-
-    #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+        #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
+    else:
+        response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
 
 @csrf_exempt

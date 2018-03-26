@@ -176,7 +176,13 @@
       
         document.getElementById('on_subreddit').addEventListener('click', function(){
             api.toggle("subreddit", "True", function(err, res){
-                if (err) console.log(err);
+                if (err) {
+                    document.querySelector('#on_subreddit').setAttribute("class", "btn btn-warning");
+                    document.querySelector('#off_subreddit').setAttribute("class","btn btn-warning active");
+                    document.querySelector('.subreddit_success').style.display = 'none';                    
+                    document.querySelector('.subreddit_error').style.display = 'block';
+                    document.querySelector('.subreddit_error').innerHTML = err;
+                }
             });
         });
     });

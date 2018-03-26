@@ -139,7 +139,15 @@
 
         document.getElementById('on_weather').addEventListener('click', function(){
             api.toggle("weather", "True", function(err, res){
-                if (err) console.log(err);
+                if (err) {
+                    document.querySelector('#on_weather').setAttribute("class", "btn btn-warning");
+                    document.querySelector('#off_weather').setAttribute("class","btn btn-warning active");
+                    document.querySelector('.location_success').style.display = 'none';                    
+                    document.querySelector('.location_error').style.display = 'block';
+                    document.querySelector('.location_error').innerHTML = err;
+                    
+                    
+                }
             });
         });
 

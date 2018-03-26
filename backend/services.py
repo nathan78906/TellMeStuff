@@ -42,3 +42,12 @@ def get_subreddit(sr):
 
     body = body.rstrip()
     return body
+
+def get_urbandictionary():
+    request = requests.get("http://urban-word-of-the-day.herokuapp.com/")
+    word_content = request.json()
+    word = word_content["word"]
+    meaning = word_content["meaning"].replace("\n","")
+    body = word + ":" + meaning
+    body = body.rstrip()
+    return body

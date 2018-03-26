@@ -9,9 +9,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
 
-from .models import Weather, Profile, Subreddit, Motivation
+from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary
 
-from .services import get_weather, get_quote, get_subreddit
+from .services import get_weather, get_quote, get_subreddit, get_urbandictionary
 
 
 @csrf_exempt
@@ -57,6 +57,11 @@ def dialogflow(request):
                 result = get_quote()
                 json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
 
+        if UrbanDictionary.objects.filter(user=user).exists():
+            if UrbanDictionary.objects.get(user=user).active:
+                result = get_urbandictionary()
+                json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+
         if Subreddit.objects.filter(user=user).exists():
             if Subreddit.objects.get(user=user).active:
                 sr = Subreddit.objects.get(user=user).subreddit
@@ -81,8 +86,11 @@ def api_signup(request):
     username = body['username']
     password = body['password']
     password_confirm = body['password_confirm']
+    if len(password) < 6:
+    	return HttpResponse("Password must be at least 6 characters long!", status=422) 
     if password != password_confirm:
         return HttpResponse("Passwords do not match", status=422) 
+
     try:
       user = User.objects.create_user(username=username, password=password)
       user.save()
@@ -215,6 +223,19 @@ def toggle(request):
                 return JsonResponse({"type": toggle_type, "action": action})
             else:
                 return HttpResponse("Please submit a subreddit first", status=400)
+        elif toggle_type == "urban":
+            if UrbanDictionary.objects.filter(user = request.user).exists():
+                entry = UrbanDictionary.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                try:
+                    entry = UrbanDictionary(user = request.user, active = action)
+                    entry.save()
+                    return JsonResponse({"type": toggle_type, "action": action})             
+                except:
+                    return HttpResponse("Internal server error", status=400)
 
 def user(request):
     return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
@@ -233,6 +254,21 @@ def getQuote(request):
 def getMotivation(request):
     if Motivation.objects.filter(user = request.user).exists():
         entry = Motivation.objects.get(user = request.user)
+        return JsonResponse({"active": entry.active})
+    else:
+        return JsonResponse({"active": ""})
+
+def getUWordOfTheDay(request):
+    body = get_urbandictionary()
+    return JsonResponse({"content": body})
+
+def getQuote(request):
+    body = get_quote()
+    return JsonResponse({"content": body})
+
+def getUrbanDictionary(request):
+    if UrbanDictionary.objects.filter(user = request.user).exists():
+        entry = UrbanDictionary.objects.get(user = request.user)
         return JsonResponse({"active": entry.active})
     else:
         return JsonResponse({"active": ""})

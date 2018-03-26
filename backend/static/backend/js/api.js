@@ -56,6 +56,14 @@ var api = (function(){
         send("GET", "/api/getMotivation/", null, callback)
     }
 
+    module.getUWordOfTheDay = function (callback){
+        send("GET", "/api/getUWordOfTheDay/", null, callback)
+    }
+
+    module.getUrbanDictionary = function (callback){
+        send("GET", "/api/getUrbanDictionary/", null, callback)
+    }
+
     module.getWeather = function(callback){
         send("GET", "/api/getWeather/", null, callback);
     }

@@ -82,6 +82,27 @@
         });
     }
 
+    function checkUrbanDictionary(){
+        api.getUrbanDictionary (function(err, res){
+            if (err) console.log(err);
+            if (res.active != ""){
+                if (res.active == true){
+                    document.querySelector('#off_urban').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#on_urban').setAttribute("class","btn btn-warning active");
+                }
+                else if (res.active == false){
+                    document.querySelector('#on_urban').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#off_urban').setAttribute("class","btn btn-warning active");             
+                }
+            }
+            else{
+                document.querySelector('#off_urban').setAttribute("class","btn btn-warning active");         
+                              
+            }
+            
+        });
+    }
+
     function checkSubreddit(){
         api.getSubreddit (function(err, res){
             if (err) console.log(err);
@@ -111,11 +132,17 @@
         element.innerHTML = motivation;
     }
 
+    function insertUWordOfTheDay(urban){
+        var element = document.querySelector('#urbanDictionary_example');
+        element.innerHTML = urban;
+    }
+
     window.addEventListener('load', function(){
 
         checkWeather();
         checkMotivation();
         checkSubreddit();
+        checkUrbanDictionary();
 
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
@@ -126,6 +153,15 @@
             
         });
         
+        document.querySelector('#urban_example').addEventListener('click', function(e){
+            api.getUWordOfTheDay(function(err, res){
+                console.log(res.content);
+                if (err) console.log(err);
+                insertUWordOfTheDay(res.content);
+            });
+            
+        });
+
         document.querySelector('#locationform').addEventListener('submit', function(e){
             e.preventDefault();
             submitLocation();
@@ -153,6 +189,18 @@
 
         document.getElementById('off_motivation').addEventListener('click', function(){
             api.toggle("motivation", "False", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('off_urban').addEventListener('click', function(){
+            api.toggle("urban", "False", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('on_urban').addEventListener('click', function(){
+            api.toggle("urban", "True", function(err, res){
                 if (err) console.log(err);
             });
         });

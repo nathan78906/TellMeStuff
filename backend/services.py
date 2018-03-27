@@ -1,6 +1,7 @@
 from weather import Weather as WeatherApi, Unit
 import requests
 import praw
+import json
 from django.conf import settings
 
 def get_weather(city):
@@ -22,9 +23,8 @@ def get_weather(city):
     return result
 
 def get_quote():
-    quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en")
-    print(quotex.text)
-    word_content = quotex.json()
+    quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en").content.decode('utf-8').replace("\\", "")
+    word_content = json.loads(quotex)
     quote = word_content["quoteText"]
     author = word_content["quoteAuthor"]
     body = quote + "\n -" + author

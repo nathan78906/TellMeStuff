@@ -22,6 +22,8 @@ def dialogflow(request):
 
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
+
+    
     if body["result"]["resolvedQuery"] == "FACEBOOK_WELCOME":
         # get user that matches userID
         user_id = int(body["originalRequest"]["data"]["postback"]["referral"]["ref"])
@@ -38,51 +40,89 @@ def dialogflow(request):
                 return HttpResponse(status=200)            
             except:
                 return HttpResponse("Internal server error", status=500)
+    
+    if body["originalRequest"]["source"] == "twilio":
+        if Profile.objects.filter(phone_number=body["originalRequest"]["data"]["From"][2:]).exists():
+            user = Profile.objects.get(phone_number=body["originalRequest"]["data"]["From"][2:]).user
+            username = user.username
+            welcome = "Here's stuff for " + username
+            json_ret = {"messages": [{"speech": welcome,"type": 0}]}
+            
+            if body["result"]["metadata"]["intentName"] == "weather":
+                if Weather.objects.filter(user=user).exists():
+                    if Weather.objects.get(user=user).active:
+                        city = Weather.objects.get(user=user).location
+                        result = get_weather(city)
+                        json_ret["messages"].append({"speech": result,"type": 0})
+                return JsonResponse(json_ret)
+            else:
+                if Weather.objects.filter(user=user).exists():
+                    if Weather.objects.get(user=user).active:
+                        city = Weather.objects.get(user=user).location
+                        result = get_weather(city)
+                        json_ret["messages"].append({"speech": result,"type": 0})
 
-    elif Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
-        user = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user
-        username = user.username
-        welcome = "Here's stuff for " + username
-        json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
-        
-        if body["result"]["metadata"]["intentName"] == "weather":
-            if Weather.objects.filter(user=user).exists():
-                if Weather.objects.get(user=user).active:
-                    city = Weather.objects.get(user=user).location
-                    result = get_weather(city)
-                    json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-            return JsonResponse(json_ret)
+                if Motivation.objects.filter(user=user).exists():
+                    if Motivation.objects.get(user=user).active:
+                        result = get_quote()
+                        json_ret["messages"].append({"speech": result,"type": 0})
+
+                if UrbanDictionary.objects.filter(user=user).exists():
+                    if UrbanDictionary.objects.get(user=user).active:
+                        result = get_urbandictionary()
+                        json_ret["messages"].append({"speech": result,"type": 0})
+
+                if Subreddit.objects.filter(user=user).exists():
+                    if Subreddit.objects.get(user=user).active:
+                        sr = Subreddit.objects.get(user=user).subreddit
+                        result = get_subreddit(sr)
+                        json_ret["messages"].append({"speech": result,"type": 0})
+            
+            print(json_ret)
+            response = JsonResponse(json_ret)
         else:
-            if Weather.objects.filter(user=user).exists():
-                if Weather.objects.get(user=user).active:
-                    city = Weather.objects.get(user=user).location
-                    result = get_weather(city)
-                    json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+            response = JsonResponse({"messages": [{"speech": "No match found!","type": 0}]})
+    elif body["originalRequest"]["source"] == "facebook":
+        if Profile.objects.filter(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).exists():
+            user = Profile.objects.get(facebook_id=body["originalRequest"]["data"]["sender"]["id"]).user
+            username = user.username
+            welcome = "Here's stuff for " + username
+            json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
+            
+            if body["result"]["metadata"]["intentName"] == "weather":
+                if Weather.objects.filter(user=user).exists():
+                    if Weather.objects.get(user=user).active:
+                        city = Weather.objects.get(user=user).location
+                        result = get_weather(city)
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+                return JsonResponse(json_ret)
+            else:
+                if Weather.objects.filter(user=user).exists():
+                    if Weather.objects.get(user=user).active:
+                        city = Weather.objects.get(user=user).location
+                        result = get_weather(city)
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
 
-            if Motivation.objects.filter(user=user).exists():
-                if Motivation.objects.get(user=user).active:
-                    result = get_quote()
-                    json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+                if Motivation.objects.filter(user=user).exists():
+                    if Motivation.objects.get(user=user).active:
+                        result = get_quote()
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
 
-            if UrbanDictionary.objects.filter(user=user).exists():
-                if UrbanDictionary.objects.get(user=user).active:
-                    result = get_urbandictionary()
-                    json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+                if UrbanDictionary.objects.filter(user=user).exists():
+                    if UrbanDictionary.objects.get(user=user).active:
+                        result = get_urbandictionary()
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
 
-            if Subreddit.objects.filter(user=user).exists():
-                if Subreddit.objects.get(user=user).active:
-                    sr = Subreddit.objects.get(user=user).subreddit
-                    result = get_subreddit(sr)
-                    json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-        
-        print(json_ret)
-        response = JsonResponse(json_ret)
-
-        #response = JsonResponse({"messages": [{"imageUrl": "https://i.imgur.com/kmyWgqH.jpg","platform": "facebook", "type": 3}]})
-
-        #response = JsonResponse({"facebook": {"attachment":{"type":"image", "payload":{"url":"https://i.imgur.com/kmyWgqH.jpg", "is_reusable":"true"}}}})
-    else:
-        response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
+                if Subreddit.objects.filter(user=user).exists():
+                    if Subreddit.objects.get(user=user).active:
+                        sr = Subreddit.objects.get(user=user).subreddit
+                        result = get_subreddit(sr)
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+            
+            print(json_ret)
+            response = JsonResponse(json_ret)
+        else:
+            response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
 
 @csrf_exempt

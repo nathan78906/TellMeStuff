@@ -51,3 +51,14 @@ def get_urbandictionary():
     body = word + ":" + meaning
     body = body.rstrip()
     return body
+
+def get_news():
+    headers = {"Authorization" : "3198e3d3bdaa4520a987f190caa06a61"}
+    request = requests.get(url="https://newsapi.org/v2/top-headlines?sources=google-news", headers=headers)
+    news_content = request.json()
+    news = news_content["articles"][0]
+    title = news["title"]
+    description = news["description"]
+    news_url = news["url"]
+    body = title + "\n" + description + "\n" + news_url
+    return body

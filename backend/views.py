@@ -233,6 +233,10 @@ def subreddit(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         subreddit = body['subreddit']
+        try:
+            get_subreddit(subreddit)
+        except:
+            return HttpResponse("Invalid subreddit", status=400)
         if Subreddit.objects.filter(user = request.user).exists():
             entry = Subreddit.objects.get(user = request.user)
             entry.subreddit = subreddit

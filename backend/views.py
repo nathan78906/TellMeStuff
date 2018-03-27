@@ -213,7 +213,9 @@ def subreddit(request):
             return JsonResponse({"subreddit": entry.subreddit, "active": entry.active})
         else:
             return JsonResponse({"subreddit": "", "active": ""})
-        
+
+
+@csrf_exempt        
 def phonenumber(request):
     if request.method == "PATCH":
         body_unicode = request.body.decode('utf-8')

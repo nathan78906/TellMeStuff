@@ -80,5 +80,13 @@ var api = (function(){
         send("GET", "/api/phonenumber/", null, callback);
     }
 
+    module.getNews = function (callback){
+        send("GET", "/api/news/", null, callback);
+    }
+
+    module.getNewsExample = function (callback){
+        send("GET", "/api/newsExample/", null, callback);
+    }
+
     return module;
 })();

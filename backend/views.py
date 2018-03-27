@@ -9,9 +9,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
 
-from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary
+from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, News
 
-from .services import get_weather, get_quote, get_subreddit, get_urbandictionary
+from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news
 
 
 @csrf_exempt
@@ -353,13 +353,20 @@ def getUWordOfTheDay(request):
     body = get_urbandictionary()
     return JsonResponse({"content": body})
 
-def getQuote(request):
-    body = get_quote()
-    return JsonResponse({"content": body})
-
 def getUrbanDictionary(request):
     if UrbanDictionary.objects.filter(user = request.user).exists():
         entry = UrbanDictionary.objects.get(user = request.user)
+        return JsonResponse({"active": entry.active})
+    else:
+        return JsonResponse({"active": ""})
+
+def news_example(request):
+    body = get_news()
+    return JsonResponse({"content": body})
+
+def news(request):
+    if News.objects.filter(user = request.user).exists():
+        entry = News.objects.get(user = request.user)
         return JsonResponse({"active": entry.active})
     else:
         return JsonResponse({"active": ""})

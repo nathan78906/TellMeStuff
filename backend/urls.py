@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^api/getUWordOfTheDay/', views.getUWordOfTheDay, name='getUWordOfTheDay'),
     url(r'^api/getUrbanDictionary/', views.getUrbanDictionary, name='getUrbanDictionary'),   
     url(r'^api/getWeather/', views.getWeather, name='getWeather'),  
-    url(r'^api/phonenumber/', views.phonenumber, name='phonenumber'),  
+    url(r'^api/phonenumber/', views.phonenumber, name='phonenumber'), 
+    url(r'^api/news/', views.news, name='news'), 
+    url(r'^api/newsExample/', views.news_example, name='news_example'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
 ]

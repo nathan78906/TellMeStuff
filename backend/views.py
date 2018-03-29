@@ -143,7 +143,7 @@ def dialogflow(request):
                 if News.objects.filter(user=user).exists():
                     if News.objects.get(user=user).active:
                         result = get_news()
-                        json_ret["messages"].append({"speech": result,"type": 0})
+                        json_ret["messages"].append({"platform": "facebook", "speech": result,"type": 0})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:

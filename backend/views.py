@@ -98,7 +98,10 @@ def dialogflow(request):
                         json_ret["messages"].append({"speech": result,"type": 0})
             
             print(json_ret)
-            response = JsonResponse(json_ret)
+            if len(json_ret["messages"]) == 1:
+                response = JsonResponse({"messages": [{"speech": "No active subscriptions for " + username,"type": 0}]})
+            else:
+                response = JsonResponse(json_ret)
         else:
             response = JsonResponse({"messages": [{"speech": "No match found!","type": 0}]})
     elif body["originalRequest"]["source"] == "facebook":
@@ -158,7 +161,10 @@ def dialogflow(request):
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
             
             print(json_ret)
-            response = JsonResponse(json_ret)
+            if len(json_ret["messages"]) == 1:
+                response = JsonResponse({"messages": [{"platform": "facebook","speech": "No active subscriptions for " + username,"type": 0}]})
+            else:
+                response = JsonResponse(json_ret)
         else:
             response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response

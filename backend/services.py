@@ -61,5 +61,5 @@ def get_news():
     title = news["title"]
     description = news["description"]
     news_url = news["url"]
-    body = title + "\n" + description + "\n" + news_url
+    body = "Headline: " + title + "\n\n" + "Summary: " + description + "\n\n" + news_url
     return body

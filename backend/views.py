@@ -181,7 +181,6 @@ def dialogflow(request):
             response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
 
-@csrf_exempt
 @require_POST
 def api_signup(request):
     body_unicode = request.body.decode('utf-8')
@@ -204,7 +203,6 @@ def api_signup(request):
     return JsonResponse({"username": username})
 
 
-@csrf_exempt
 @require_POST
 def api_signin(request):
     body_unicode = request.body.decode('utf-8')
@@ -218,12 +216,10 @@ def api_signin(request):
     else:
         return HttpResponse("Invalid credentials", status=401)
 
-@csrf_exempt
 def api_logout(request):
     logout(request)
     return redirect("/")
 
-@csrf_exempt
 def set_location(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -245,7 +241,6 @@ def set_location(request):
         except:
             return HttpResponse("Internal server error", status=500)
 
-@csrf_exempt
 def subreddit(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
@@ -274,8 +269,7 @@ def subreddit(request):
         else:
             return JsonResponse({"subreddit": "", "active": ""})
 
-
-@csrf_exempt        
+      
 def phonenumber(request):
     if request.method == "PATCH":
         body_unicode = request.body.decode('utf-8')
@@ -296,7 +290,6 @@ def phonenumber(request):
             return JsonResponse({"phone_number": ""})
        
 
-@csrf_exempt
 def toggle(request):
     if request.method == "PATCH":
         body_unicode = request.body.decode('utf-8')

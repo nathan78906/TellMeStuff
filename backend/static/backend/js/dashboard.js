@@ -169,7 +169,7 @@
     }
 
     window.addEventListener('load', function(){
-
+        
         checkWeather();
         checkMotivation();
         checkSubreddit();
@@ -178,7 +178,6 @@
 
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
-                console.log(res.content);
                 if (err) console.log(err);
                 insertQuote(res.content);
             });
@@ -186,7 +185,6 @@
         
         document.querySelector('#urban_example').addEventListener('click', function(e){
             api.getUWordOfTheDay(function(err, res){
-                console.log(res.content);
                 if (err) console.log(err);
                 insertUWordOfTheDay(res.content);
             });
@@ -194,7 +192,6 @@
 
         document.querySelector('#reddit_example').addEventListener('click', function(e){
             api.getRedditExample(function(err, res){
-                console.log(res.content);
                 if (err) console.log(err);
                 insertReddit(res.content);
             });
@@ -202,7 +199,6 @@
 
         document.querySelector('#news_example').addEventListener('click', function(e){
             api.getNewsExample(function(err, res){
-                console.log(res.content);
                 if (err) console.log(err);
                 insertNews(res.content);
             });

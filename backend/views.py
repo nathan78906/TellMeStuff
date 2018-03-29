@@ -54,26 +54,22 @@ def dialogflow(request):
                         city = Weather.objects.get(user=user).location
                         result = get_weather(city)
                         json_ret["messages"].append({"speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "subreddit":
                 if Subreddit.objects.filter(user=user).exists():
                     if Subreddit.objects.get(user=user).active:
                         sr = Subreddit.objects.get(user=user).subreddit
                         result = get_subreddit(sr)
                         json_ret["messages"].append({"speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "motivation":
                 if Motivation.objects.filter(user=user).exists():
                     if Motivation.objects.get(user=user).active:
                         result = get_quote()
                         json_ret["messages"].append({"speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "wordoftheday":
                 if UrbanDictionary.objects.filter(user=user).exists():
                     if UrbanDictionary.objects.get(user=user).active:
                         result = get_urbandictionary()
                         json_ret["messages"].append({"speech": result,"type": 0})
-                return JsonResponse(json_ret)
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:
@@ -117,26 +113,22 @@ def dialogflow(request):
                         city = Weather.objects.get(user=user).location
                         result = get_weather(city)
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "subreddit":
                 if Subreddit.objects.filter(user=user).exists():
                     if Subreddit.objects.get(user=user).active:
                         sr = Subreddit.objects.get(user=user).subreddit
                         result = get_subreddit(sr)
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "motivation":
                 if Motivation.objects.filter(user=user).exists():
                     if Motivation.objects.get(user=user).active:
                         result = get_quote()
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-                return JsonResponse(json_ret)
             elif body["result"]["metadata"]["intentName"] == "wordoftheday":
                 if UrbanDictionary.objects.filter(user=user).exists():
                     if UrbanDictionary.objects.get(user=user).active:
                         result = get_urbandictionary()
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
-                return JsonResponse(json_ret)
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:

@@ -88,5 +88,9 @@ var api = (function(){
         send("GET", "/api/newsExample/", null, callback);
     }
 
+    module.getRedditExample = function (callback){
+        send("GET", "/api/redditExample/", null, callback);
+    }
+
     return module;
 })();

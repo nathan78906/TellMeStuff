@@ -362,6 +362,10 @@ def news_example(request):
     body = get_news()
     return JsonResponse({"content": body})
 
+def reddit_example(request):
+    body = get_subreddit("all")
+    return JsonResponse({"content": body})
+
 def news(request):
     if News.objects.filter(user = request.user).exists():
         entry = News.objects.get(user = request.user)

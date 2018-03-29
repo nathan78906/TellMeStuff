@@ -137,6 +137,12 @@
         element.innerHTML = urban;
     }
 
+    function insertReddit(reddit){
+        var element = document.querySelector('#reddit_examplebody');
+        console.log(reddit);
+        element.innerHTML = reddit.replace(/\n/g, "<br>");
+    }
+
     window.addEventListener('load', function(){
 
         checkWeather();
@@ -158,6 +164,15 @@
                 console.log(res.content);
                 if (err) console.log(err);
                 insertUWordOfTheDay(res.content);
+            });
+            
+        });
+
+        document.querySelector('#reddit_example').addEventListener('click', function(e){
+            api.getRedditExample(function(err, res){
+                console.log(res.content);
+                if (err) console.log(err);
+                insertReddit(res.content);
             });
             
         });

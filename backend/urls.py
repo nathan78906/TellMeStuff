@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^api/phonenumber/', views.phonenumber, name='phonenumber'), 
     url(r'^api/news/', views.news, name='news'), 
     url(r'^api/newsExample/', views.news_example, name='news_example'),
+    url(r'^api/redditExample/', views.reddit_example, name='reddit_example'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
 ]

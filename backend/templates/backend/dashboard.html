@@ -20,6 +20,8 @@
                 <div class="card-body">
                   <div class = "description">
                     <label class = "mb-2">Tells you the current weather of the entered city</label>
+                    <br>
+                    <label class = "mb-2">Try it out by sending <kbd>tell me the weather</kbd> or <kbd>what's the weather?</kbd> to the TellMeStuff bot.</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-warning" id="off_weather">
@@ -72,7 +74,9 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
                   <div class = "description">
-                    <label class = "mb-2">Tells you the current top 5 posts of the entered subreddit</label>
+                    <label class = "mb-2">Tells you the current top 3 posts of the entered subreddit</label>
+                    <br>
+                    <label class = "mb-2">Try it out by sending <kbd>tell me reddit stuff</kbd> or <kbd>what's on reddit?</kbd> to the TellMeStuff bot.</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-warning" id="off_subreddit">
@@ -122,6 +126,8 @@
                 <div class="card-body">
                   <div class = "description">
                     <label class = "mb-2">Tells you Urban dictionary word of the day</label>
+                    <br>
+                    <label class = "mb-2">Try it out by sending <kbd>tell me the word of the day</kbd> or <kbd>what is the word of the day?</kbd> to the TellMeStuff bot.</label>
                   </div>
                     <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-warning" id="off_urban">
@@ -165,6 +171,8 @@
                   <div class="card-body">
                   <div class = "description">
                     <label class = "mb-2">Tells you a random motivational quote</label>
+                    <br>
+                    <label class = "mb-2">Try it out by sending <kbd>tell me a motivational quote</kbd> or <kbd>show me a quote</kbd> to the TellMeStuff bot.</label>
                   </div>
                       <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn btn-warning" id = "off_motivation">
@@ -196,6 +204,51 @@
                   </div>
                 </div>
             </div>
+            <div class="card">
+              <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Top News
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                <div class="card-body">
+                <div class = "description">
+                  <label class = "mb-2">Tells you the top news articles</label>
+                  <br>
+                  <label class = "mb-2">Try it out by sending <kbd>tell me news</kbd> or <kbd>show me the news</kbd> to the TellMeStuff bot.</label>
+                </div>
+                    <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-warning" id = "off_news">
+                          <input type="radio" name="options_news" id="off_news_toggle" autocomplete="off"> Off
+                        </label>
+                        <label class="btn btn-warning" id = "on_news">
+                          <input type="radio" name="options_news" id="on_news_toggle" autocomplete="off"> On
+                        </label>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleNews" id = "news_example">
+                        News Example
+                    </button>
+                  </div>
+                  <div class="modal fade" id="exampleNews" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">News Example</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" id = "news_examplebody">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
     </section>

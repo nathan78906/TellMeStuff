@@ -70,6 +70,11 @@ def dialogflow(request):
                     if UrbanDictionary.objects.get(user=user).active:
                         result = get_urbandictionary()
                         json_ret["messages"].append({"speech": result,"type": 0})
+            elif body["result"]["metadata"]["intentName"] == "news":
+                if News.objects.filter(user=user).exists():
+                    if News.objects.get(user=user).active:
+                        result = get_news()
+                        json_ret["messages"].append({"speech": result,"type": 0})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:
@@ -84,7 +89,7 @@ def dialogflow(request):
 
                 if UrbanDictionary.objects.filter(user=user).exists():
                     if UrbanDictionary.objects.get(user=user).active:
-                        result = get_urbandictionary()
+                        result = get_urbandictionary(UrbanDictionary)
                         json_ret["messages"].append({"speech": result,"type": 0})
 
                 if Subreddit.objects.filter(user=user).exists():
@@ -92,6 +97,11 @@ def dialogflow(request):
                         sr = Subreddit.objects.get(user=user).subreddit
                         result = get_subreddit(sr)
                         json_ret["messages"].append({"speech": result,"type": 0})
+
+                if News.objects.filter(user=user).exists():
+                    if News.objects.get(user=user).active:
+                        result = get_news()
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
             
             print(json_ret)
             if len(json_ret["messages"]) == 1:
@@ -129,6 +139,11 @@ def dialogflow(request):
                     if UrbanDictionary.objects.get(user=user).active:
                         result = get_urbandictionary()
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+            elif body["result"]["metadata"]["intentName"] == "news":
+                if News.objects.filter(user=user).exists():
+                    if News.objects.get(user=user).active:
+                        result = get_news()
+                        json_ret["messages"].append({"speech": result,"type": 0})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:
@@ -150,6 +165,11 @@ def dialogflow(request):
                     if Subreddit.objects.get(user=user).active:
                         sr = Subreddit.objects.get(user=user).subreddit
                         result = get_subreddit(sr)
+                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+                
+                if News.objects.filter(user=user).exists():
+                    if News.objects.get(user=user).active:
+                        result = get_news()
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
             
             print(json_ret)
@@ -321,6 +341,19 @@ def toggle(request):
             else:
                 try:
                     entry = UrbanDictionary(user = request.user, active = action)
+                    entry.save()
+                    return JsonResponse({"type": toggle_type, "action": action})             
+                except:
+                    return HttpResponse("Internal server error", status=400)
+        elif toggle_type == "news":
+            if News.objects.filter(user = request.user).exists():
+                entry = News.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                try:
+                    entry = News(user = request.user, active = action)
                     entry.save()
                     return JsonResponse({"type": toggle_type, "action": action})             
                 except:

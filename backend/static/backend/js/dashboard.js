@@ -103,6 +103,27 @@
         });
     }
 
+    function checkNews(){
+        api.getNews (function(err, res){
+            if (err) console.log(err);
+            if (res.active != ""){
+                if (res.active == true){
+                    document.querySelector('#off_news').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#on_news').setAttribute("class","btn btn-warning active");
+                }
+                else if (res.active == false){
+                    document.querySelector('#on_news').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#off_news').setAttribute("class","btn btn-warning active");             
+                }
+            }
+            else{
+                document.querySelector('#off_news').setAttribute("class","btn btn-warning active");         
+                              
+            }
+            
+        });
+    }
+
     function checkSubreddit(){
         api.getSubreddit (function(err, res){
             if (err) console.log(err);
@@ -139,8 +160,12 @@
 
     function insertReddit(reddit){
         var element = document.querySelector('#reddit_examplebody');
-        console.log(reddit);
         element.innerHTML = reddit.replace(/\n/g, "<br>");
+    }
+
+    function insertNews(news){
+        var element = document.querySelector('#news_examplebody');
+        element.innerHTML = news.replace(/\n/g, "<br>");
     }
 
     window.addEventListener('load', function(){
@@ -149,6 +174,7 @@
         checkMotivation();
         checkSubreddit();
         checkUrbanDictionary();
+        checkNews();
 
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
@@ -156,7 +182,6 @@
                 if (err) console.log(err);
                 insertQuote(res.content);
             });
-            
         });
         
         document.querySelector('#urban_example').addEventListener('click', function(e){
@@ -165,7 +190,6 @@
                 if (err) console.log(err);
                 insertUWordOfTheDay(res.content);
             });
-            
         });
 
         document.querySelector('#reddit_example').addEventListener('click', function(e){
@@ -173,6 +197,14 @@
                 console.log(res.content);
                 if (err) console.log(err);
                 insertReddit(res.content);
+            });
+        });
+
+        document.querySelector('#news_example').addEventListener('click', function(e){
+            api.getNewsExample(function(err, res){
+                console.log(res.content);
+                if (err) console.log(err);
+                insertNews(res.content);
             });
             
         });
@@ -216,6 +248,18 @@
 
         document.getElementById('on_urban').addEventListener('click', function(){
             api.toggle("urban", "True", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('off_news').addEventListener('click', function(){
+            api.toggle("news", "False", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('on_news').addEventListener('click', function(){
+            api.toggle("news", "True", function(err, res){
                 if (err) console.log(err);
             });
         });

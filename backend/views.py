@@ -77,7 +77,7 @@ def dialogflow(request):
                         json_ret["messages"].append({"speech": result,"type": 0})
             # photo not available on SMS
             elif body["result"]["metadata"]["intentName"] == "photo":
-            
+                json_ret["messages"].append({"speech": "Random Photo is not available on SMS","type": 0})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:

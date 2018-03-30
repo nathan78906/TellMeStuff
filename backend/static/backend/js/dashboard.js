@@ -124,6 +124,27 @@
         });
     }
 
+    function checkPhoto(){
+        api.getPhoto (function(err, res){
+            if (err) console.log(err);
+            if (res.active != ""){
+                if (res.active == true){
+                    document.querySelector('#off_photo').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#on_photo').setAttribute("class","btn btn-warning active");
+                }
+                else if (res.active == false){
+                    document.querySelector('#on_photo').setAttribute("class", "btn btn-warning")
+                    document.querySelector('#off_photo').setAttribute("class","btn btn-warning active");             
+                }
+            }
+            else{
+                document.querySelector('#off_photo').setAttribute("class","btn btn-warning active");         
+                              
+            }
+            
+        });
+    }
+
     function checkSubreddit(){
         api.getSubreddit (function(err, res){
             if (err) console.log(err);
@@ -168,6 +189,18 @@
         element.innerHTML = news.replace(/\n/g, "<br>");
     }
 
+    function insertPhoto(photo){
+        var element = document.querySelector('#photo_examplebody');
+        element.innerHTML = `
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="${photo.url}" alt="${photo.author}">
+            <div class="card-body">
+                <p class="card-text">${photo.author}</p>
+                <a href="${photo.source}">Photo Source</a>
+            </div>
+        </div>`;
+    }
+
     window.addEventListener('load', function(){
         
         checkWeather();
@@ -175,6 +208,7 @@
         checkSubreddit();
         checkUrbanDictionary();
         checkNews();
+        checkPhoto();
 
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
@@ -201,6 +235,14 @@
             api.getNewsExample(function(err, res){
                 if (err) console.log(err);
                 insertNews(res.content);
+            });
+            
+        });
+
+        document.querySelector('#photo_example').addEventListener('click', function(e){
+            api.getPhotoExample(function(err, res){
+                if (err) console.log(err);
+                insertPhoto(res);
             });
             
         });
@@ -286,6 +328,18 @@
                     document.querySelector('.subreddit_error').style.display = 'block';
                     document.querySelector('.subreddit_error').innerHTML = err;
                 }
+            });
+        });
+
+        document.getElementById('off_photo').addEventListener('click', function(){
+            api.toggle("photo", "False", function(err, res){
+                if (err) console.log(err);
+            });
+        });
+
+        document.getElementById('on_photo').addEventListener('click', function(){
+            api.toggle("photo", "True", function(err, res){
+                if (err) console.log(err);
             });
         });
     });

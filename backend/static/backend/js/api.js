@@ -110,5 +110,12 @@ var api = (function(){
         send("GET", "/api/redditExample/", null, callback);
     }
 
+    module.getPhoto = function (callback){
+        send("GET", "/api/photo/", null, callback);
+    }
+
+    module.getPhotoExample = function (callback){
+        send("GET", "/api/photoExample/", null, callback);
+    }
     return module;
 })();

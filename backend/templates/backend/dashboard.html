@@ -249,6 +249,51 @@
                 </div>
               </div>
           </div>
+          <div class="card">
+            <div class="card-header" id="headingSix">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                  Random Photo
+                </button>
+              </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+              <div class="card-body">
+              <div class = "description">
+                <label class = "mb-2">Sends you a random photo.<p class="font-weight-bold">This subscription is only available on the Messenger bot.</p></label>
+                <br>
+                <label class = "mb-2">Try it out by sending <kbd>tell me a random photo</kbd> or <kbd>show me a photo</kbd> to the TellMeStuff bot.</label>
+              </div>
+                  <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-warning" id = "off_photo">
+                        <input type="radio" name="options_photo" id="off_photo_toggle" autocomplete="off"> Off
+                      </label>
+                      <label class="btn btn-warning" id = "on_photo">
+                        <input type="radio" name="options_photo" id="on_photo_toggle" autocomplete="off"> On
+                      </label>
+                  </div>
+                  <div>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#examplePhoto" id = "photo_example">
+                      Photo Example
+                  </button>
+                </div>
+                <div class="modal fade" id="examplePhoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header ">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Photo Example</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body row justify-content-center" id = "photo_examplebody">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+        </div>
         </div>
       </div>
     </section>

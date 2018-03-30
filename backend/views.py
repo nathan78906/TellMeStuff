@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout, get_user
 
 from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, News
 
-from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news
+from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news, get_photo
 
 
 @csrf_exempt
@@ -116,6 +116,8 @@ def dialogflow(request):
             username = user.username
             welcome = "Here's stuff for " + username
             json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
+            photo = get_photo()
+            json_ret["messages"].append({"imageUrl": photo["post_url"],"platform": "facebook","title": photo["author"],"type": 1})
             
             if body["result"]["metadata"]["intentName"] == "weather":
                 if Weather.objects.filter(user=user).exists():

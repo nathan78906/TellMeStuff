@@ -2,6 +2,7 @@ from weather import Weather as WeatherApi, Unit
 import requests
 import praw
 import json
+import random
 from django.conf import settings
 
 def get_weather(city):
@@ -63,3 +64,9 @@ def get_news():
     news_url = news["url"]
     body = "Headline: " + title + "\n\n" + "Summary: " + description + "\n\n" + news_url
     return body
+
+def get_photo():
+    num = random.randint(0,997)
+    photo_list = requests.get("https://picsum.photos/list").json()
+    rand_photo = photo_list[num]
+    return rand_photo   

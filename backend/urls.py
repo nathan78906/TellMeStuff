@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^api/news/', views.news, name='news'), 
     url(r'^api/newsExample/', views.news_example, name='news_example'),
     url(r'^api/redditExample/', views.reddit_example, name='reddit_example'),
+    url(r'^.well-known/acme-challenge/Jyjd0pmys18piVlnw-Yig1K2GBRvddjaawbH8ZrrZcE', views.ssl, name='ssl'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
 ]

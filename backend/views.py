@@ -13,6 +13,9 @@ from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, Ne
 
 from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news
 
+@csrf_exempt
+def ssl(request):
+	return HttpResponse("Jyjd0pmys18piVlnw-Yig1K2GBRvddjaawbH8ZrrZcE.E-xZ95oeKcVt5kGOqJjGNYCp8y7amqKlgWBnVW5EWzQ", status=200)
 
 @csrf_exempt
 @require_POST

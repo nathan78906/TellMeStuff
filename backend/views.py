@@ -117,7 +117,7 @@ def dialogflow(request):
             welcome = "Here's stuff for " + username
             json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
             photo = get_photo()
-            json_ret["messages"].append({"buttons": [{"postback": photo["url"] ,"text": "Photo Source"}],"imageUrl": photo["url"],"platform": "facebook","title": photo["author"],"type": 1})
+            json_ret["messages"].append({"buttons": [{"postback": photo["source"] ,"text": "Photo Source"}],"imageUrl": photo["url"],"platform": "facebook","title": photo["author"],"type": 1})
             
             if body["result"]["metadata"]["intentName"] == "weather":
                 if Weather.objects.filter(user=user).exists():

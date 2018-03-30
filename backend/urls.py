@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^api/news/', views.news, name='news'), 
     url(r'^api/newsExample/', views.news_example, name='news_example'),
     url(r'^api/redditExample/', views.reddit_example, name='reddit_example'),
+    url(r'^api/photo/', views.photo, name='photo'),
+    url(r'^api/photoExample/', views.photo_example, name='photo_example'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
 ]

@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user
 
-from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, News
+from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, News, Photo
 
 from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news, get_photo
 
@@ -116,8 +116,6 @@ def dialogflow(request):
             username = user.username
             welcome = "Here's stuff for " + username
             json_ret = {"messages": [{"platform": "facebook","speech": welcome,"type": 0}]}
-            photo = get_photo()
-            json_ret["messages"].append({"buttons": [{"postback": photo["source"] ,"text": "Photo Source"}],"imageUrl": photo["url"],"platform": "facebook","title": photo["author"],"type": 1})
             
             if body["result"]["metadata"]["intentName"] == "weather":
                 if Weather.objects.filter(user=user).exists():
@@ -146,6 +144,11 @@ def dialogflow(request):
                     if News.objects.get(user=user).active:
                         result = get_news()
                         json_ret["messages"].append({"platform": "facebook", "speech": result,"type": 0})
+            elif body["result"]["metadata"]["intentName"] == "photo":
+                if Photo.objects.filter(user=user).exists():
+                    if Photo.objects.get(user=user).active:
+                        result = get_photo()
+                        json_ret["messages"].append({"buttons": [{"postback": photo["source"] ,"text": "Photo Source"}],"imageUrl": photo["url"],"platform": "facebook","title": photo["author"],"type": 1})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:
@@ -173,6 +176,11 @@ def dialogflow(request):
                     if News.objects.get(user=user).active:
                         result = get_news()
                         json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+
+                if Photo.objects.filter(user=user).exists():
+                    if Photo.objects.get(user=user).active:
+                        photo = get_photo()
+                        json_ret["messages"].append({"buttons": [{"postback": photo["source"] ,"text": "Photo Source"}],"imageUrl": photo["url"],"platform": "facebook","title": photo["author"],"type": 1})
             
             print(json_ret)
             if len(json_ret["messages"]) == 1:
@@ -353,6 +361,19 @@ def toggle(request):
                     return JsonResponse({"type": toggle_type, "action": action})             
                 except:
                     return HttpResponse("Internal server error", status=400)
+        elif toggle_type == "photo":
+            if Photo.objects.filter(user = request.user).exists():
+                entry = Photo.objects.get(user = request.user)
+                entry.active = action
+                entry.save()
+                return JsonResponse({"type": toggle_type, "action": action})
+            else:
+                try:
+                    entry = Photo(user = request.user, active = action)
+                    entry.save()
+                    return JsonResponse({"type": toggle_type, "action": action})             
+                except:
+                    return HttpResponse("Internal server error", status=400)
 
 def user(request):
     return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
@@ -400,6 +421,17 @@ def news(request):
         return JsonResponse({"active": entry.active})
     else:
         return JsonResponse({"active": ""})
+
+def photo(request):
+    if Photo.objects.filter(user = request.user).exists():
+        entry = Photo.objects.get(user = request.user)
+        return JsonResponse({"active": entry.active})
+    else:
+        return JsonResponse({"active": ""})
+
+def photo_example(request):
+    body = get_photo()
+    return JsonResponse({"content": body})
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

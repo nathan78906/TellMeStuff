@@ -101,7 +101,7 @@ def dialogflow(request):
                 if News.objects.filter(user=user).exists():
                     if News.objects.get(user=user).active:
                         result = get_news()
-                        json_ret["messages"].append({"platform": "facebook","speech": result,"type": 0})
+                        json_ret["messages"].append({"speech": result,"type": 0})
             
             print(json_ret)
             if len(json_ret["messages"]) == 1:
@@ -405,6 +405,11 @@ def home(request):
 
 def index(request):
     return render(request, 'backend/index.html')
+
+def credits(request):
+    if request.user.is_authenticated:
+        return render(request, 'backend/credits_loggedin.html')
+    return render(request, 'backend/credits.html')
 
 def signup(request):
     if request.user.is_authenticated:

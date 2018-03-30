@@ -69,4 +69,6 @@ def get_photo():
     num = random.randint(0,997)
     photo_list = requests.get("https://picsum.photos/list").json()
     rand_photo = photo_list[num]
-    return rand_photo   
+    author = rand_photo["author"]
+    photo_id = rand_photo["id"]
+    return {"author": author, "url": "https://picsum.photos/1920/1080?image=" + photo_id}

@@ -431,7 +431,7 @@ def photo(request):
 
 def photo_example(request):
     body = get_photo()
-    return JsonResponse({"content": body})
+    return JsonResponse(body)
 
 def home(request):
     response = JsonResponse({"hi": "ayy"})

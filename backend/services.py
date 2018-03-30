@@ -71,4 +71,4 @@ def get_photo():
     rand_photo = photo_list[num]
     author = rand_photo["author"]
     photo_id = rand_photo["id"]
-    return {"author": author, "url": "https://picsum.photos/1920/1080?image=" + photo_id}
+    return {"author": author, "url": "https://picsum.photos/1920/1080?image=" + str(photo_id)}

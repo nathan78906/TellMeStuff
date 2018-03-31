@@ -13,7 +13,10 @@ from .models import Weather, Profile, Subreddit, Motivation, UrbanDictionary, Ne
 
 from .services import get_weather, get_quote, get_subreddit, get_urbandictionary, get_news, get_photo
 
-
+# Manages communication between FB/SMS and backend
+# Adds facebook user ID mapping
+# Calls APIs for subscriptions
+# Intent matching for specific subscriptions
 @csrf_exempt
 @require_POST
 def dialogflow(request):
@@ -77,7 +80,7 @@ def dialogflow(request):
                         json_ret["messages"].append({"speech": result,"type": 0})
             # photo not available on SMS
             elif body["result"]["metadata"]["intentName"] == "photo":
-                json_ret["messages"].append({"speech": "Random Photo is not available on SMS","type": 0})
+                return JsonResponse({"speech": "Random Photo is not available on SMS","type": 0})
             else:
                 if Weather.objects.filter(user=user).exists():
                     if Weather.objects.get(user=user).active:
@@ -194,6 +197,7 @@ def dialogflow(request):
             response = JsonResponse({"messages": [{"platform": "facebook","speech": "No match found!","type": 0}]})
     return response
 
+# signs up a user
 @require_POST
 def api_signup(request):
     body_unicode = request.body.decode('utf-8')
@@ -215,7 +219,7 @@ def api_signup(request):
     login(request, user_auth)
     return JsonResponse({"username": username})
 
-
+# signs in a user
 @require_POST
 def api_signin(request):
     body_unicode = request.body.decode('utf-8')
@@ -229,10 +233,12 @@ def api_signin(request):
     else:
         return HttpResponse("Invalid credentials", status=401)
 
+# logs out a user and redirects to homepage
 def api_logout(request):
     logout(request)
     return redirect("/")
 
+# Stores the user's location in the database for use in the weather subscription
 def set_location(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -254,6 +260,7 @@ def set_location(request):
         except:
             return HttpResponse("Internal server error", status=500)
 
+# Gives the user a subreddit example and checks their subscription status
 def subreddit(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
@@ -282,7 +289,7 @@ def subreddit(request):
         else:
             return JsonResponse({"subreddit": "", "active": ""})
 
-      
+# Stores a user's phone number in the database
 def phonenumber(request):
     if request.method == "PATCH":
         body_unicode = request.body.decode('utf-8')
@@ -302,7 +309,7 @@ def phonenumber(request):
         else:
             return JsonResponse({"phone_number": ""})
        
-
+# Sets the subscriptions to off or on based on subscription type
 def toggle(request):
     if request.method == "PATCH":
         body_unicode = request.body.decode('utf-8')
@@ -378,9 +385,11 @@ def toggle(request):
                 except:
                     return HttpResponse("Internal server error", status=400)
 
+# Gets the user's ID for the facebook messenger link
 def user(request):
     return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
 
+# Checks the state of a user's weather subscription
 def getWeather(request):
     if Weather.objects.filter(user = request.user).exists():
         entry = Weather.objects.get(user = request.user)
@@ -388,10 +397,12 @@ def getWeather(request):
     else:
         return JsonResponse({"location": "", "active": ""})
 
+# Gives the user a quote example
 def getQuote(request):
     body = get_quote()
     return JsonResponse({"content": body})
 
+# Checks the state of a user's motivational quote subscription
 def getMotivation(request):
     if Motivation.objects.filter(user = request.user).exists():
         entry = Motivation.objects.get(user = request.user)
@@ -399,10 +410,12 @@ def getMotivation(request):
     else:
         return JsonResponse({"active": ""})
 
+# Gives the user a word of the day example
 def getUWordOfTheDay(request):
     body = get_urbandictionary()
     return JsonResponse({"content": body})
 
+# Checks the state of a user's word of the day subscription
 def getUrbanDictionary(request):
     if UrbanDictionary.objects.filter(user = request.user).exists():
         entry = UrbanDictionary.objects.get(user = request.user)
@@ -410,14 +423,17 @@ def getUrbanDictionary(request):
     else:
         return JsonResponse({"active": ""})
 
+# Gives the user a news example
 def news_example(request):
     body = get_news()
     return JsonResponse({"content": body})
 
+# Gives the user a reddit example
 def reddit_example(request):
     body = get_subreddit("all")
     return JsonResponse({"content": body})
 
+# Checks the state of a user's news subscription
 def news(request):
     if News.objects.filter(user = request.user).exists():
         entry = News.objects.get(user = request.user)
@@ -425,6 +441,7 @@ def news(request):
     else:
         return JsonResponse({"active": ""})
 
+# Checks the state of a user's photo subscription
 def photo(request):
     if Photo.objects.filter(user = request.user).exists():
         entry = Photo.objects.get(user = request.user)
@@ -432,27 +449,28 @@ def photo(request):
     else:
         return JsonResponse({"active": ""})
 
+# Gives the user a photo example
 def photo_example(request):
     body = get_photo()
     return JsonResponse(body)
 
-def home(request):
-    response = JsonResponse({"hi": "ayy"})
-    return response
-
+# Redirects user to main page
 def index(request):
     return render(request, 'backend/index.html')
 
+# Checks if user is authenticated and redirects the user to credits page
 def credits(request):
     if request.user.is_authenticated:
         return render(request, 'backend/credits_loggedin.html')
     return render(request, 'backend/credits.html')
 
+# Checks if user is authenticated and redirects the user to signup page or dashboard
 def signup(request):
     if request.user.is_authenticated:
         return redirect("/dashboard/")
     return render(request, 'backend/signup.html')
 
+# Checks if user is authenticated and redirects the user to signin page or dashboard
 def signin(request):
     if request.user.is_authenticated:
         return redirect("/dashboard/")

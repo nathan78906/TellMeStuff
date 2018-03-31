@@ -5,6 +5,7 @@ import json
 import random
 from django.conf import settings
 
+# Get's weather info
 def get_weather(city):
     weather = WeatherApi(unit=Unit.CELSIUS)
 
@@ -23,6 +24,7 @@ def get_weather(city):
     result += "\nWith a high of " + forecast.high() + " C" + " and a low of " + forecast.low() + " C"
     return result
 
+# Gets motivational quote info
 def get_quote():
     quotex = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en").content.decode('utf-8').replace("\\", "")
     word_content = json.loads(quotex)
@@ -31,6 +33,7 @@ def get_quote():
     body = quote + "\n -" + author
     return body
 
+# Gets subreddit info
 def get_subreddit(sr):
     reddit = praw.Reddit(client_id=settings.REDDIT_CLIENT_ID, client_secret= settings.REDDIT_CLIENT_SECRET,
                          user_agent= settings.REDDIT_AUTH_AGENT)
@@ -45,6 +48,7 @@ def get_subreddit(sr):
     body = body.rstrip()
     return body
 
+# Gets word of the day info
 def get_urbandictionary():
     request = requests.get("http://urban-word-of-the-day.herokuapp.com/")
     word_content = request.json()
@@ -54,6 +58,7 @@ def get_urbandictionary():
     body = body.rstrip()
     return body
 
+# Gets top news info
 def get_news():
     headers = {"Authorization" : "3198e3d3bdaa4520a987f190caa06a61"}
     request = requests.get(url="https://newsapi.org/v2/top-headlines?sources=google-news", headers=headers)
@@ -65,6 +70,7 @@ def get_news():
     body = "Headline: " + title + "\n\n" + "Summary: " + description + "\n\n" + news_url
     return body
 
+# Gets random photo info
 def get_photo():
     num = random.randint(0,997)
     photo_list = requests.get("https://picsum.photos/list").json()

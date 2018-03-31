@@ -291,7 +291,7 @@ def subreddit(request):
 
 # Stores a user's phone number in the database
 def phonenumber(request):
-    if request.method == "PATCH":
+    if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         phone_number = body['phone_number']
@@ -301,7 +301,9 @@ def phonenumber(request):
             profile_entry.save()
             return JsonResponse({"phone_number": phone_number})
         except:
-            return HttpResponse("Internal server error", status=500)
+            profile_entry = Profile(user=request.user, phone_number=phone_number)
+            profile_entry.save()
+            return JsonResponse({"phone_number": phone_number}) 
     elif request.method == "GET":
         if Profile.objects.filter(user=request.user).exists():
             entry = Profile.objects.get(user=request.user)
@@ -387,7 +389,10 @@ def toggle(request):
 
 # Gets the user's ID for the facebook messenger link
 def user(request):
-    return JsonResponse({"user_id": request.user.id, "user_name": request.user.username})
+    if Profile.objects.filter(user=request.user).exists():
+        return JsonResponse({"user_id": request.user.id, "user_name": request.user.username, "profile": True})
+    else:
+        return JsonResponse({"user_id": request.user.id, "user_name": request.user.username, "profile": False})        
 
 # Checks the state of a user's weather subscription
 def getWeather(request):

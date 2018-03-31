@@ -63,6 +63,10 @@ header.masthead h1 {
   }
 }
 
+#settings_reminder{
+  display: none
+}
+
 .navbar-brand{
   font-size: 2rem;
 }

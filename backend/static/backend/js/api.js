@@ -91,7 +91,7 @@ var api = (function(){
     }
 
     module.setPhoneNumber = function (phone_number, callback){
-        send("PATCH", "/api/phonenumber/", {phone_number: phone_number}, callback);
+        send("POST", "/api/phonenumber/", {phone_number: phone_number}, callback);
     }
 
     module.getPhoneNumber = function (callback){

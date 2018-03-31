@@ -15,6 +15,7 @@
                     document.querySelector('.location_error').style.display = 'none';                    
                     document.querySelector('.location_success').style.display = 'block';
                     document.querySelector('.location_success').innerHTML = "Successfully submitted your location!";
+                    checkWeather();
                 }
             });
         }
@@ -34,6 +35,7 @@
                     document.querySelector('.subreddit_error').style.display = 'none';                                        
                     document.querySelector('.subreddit_success').style.display = 'block';
                     document.querySelector('.subreddit_success').innerHTML = "Successfully submitted your subreddit!";
+                    checkSubreddit();
                 }
             });
         }
@@ -177,6 +179,19 @@
         });
     }
 
+    // Checking if the user has any notification platforms set up already
+    function checkPlatforms(){
+        var profile;
+        
+        api.getUser(function(err, res){
+            if (err) console.log(err);
+            profile = res.profile;
+            if (!profile){
+                document.querySelector('#settings_reminder').style.display = 'block';
+            } 
+        });
+    }
+
     // Inserts the quote into the example modal
     function insertQuote(motivation){
         var element = document.querySelector('#motivation_example');
@@ -223,6 +238,7 @@
         checkUrbanDictionary();
         checkNews();
         checkPhoto();
+        checkPlatforms();
 
         // Toggle, example and form listeners to call their respective API functions
         document.querySelector('#mot_example').addEventListener('click', function(e){

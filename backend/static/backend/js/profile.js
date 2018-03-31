@@ -36,6 +36,7 @@
                     document.querySelector('.phonenum_error').style.display = 'none';
                     document.querySelector('.phonenum_success').style.display = 'block';
                     document.querySelector('.phonenum_success').innerHTML = "Successfully added your phone number!";
+                    checkPhoneNumber();
                 }
             });
         }

@@ -1,6 +1,7 @@
 (function(){
     "use strict";
 
+    // Sets the given location of the user
     function submitLocation(){
         if (document.querySelector('#locationform').checkValidity()){
             var location = document.querySelector("#userlocation").value;
@@ -19,6 +20,7 @@
         }
     }
 
+    // Sets the given subreddit of the user
     function submitSubreddit(){
         if (document.querySelector('#subredditform').checkValidity()){
             var subreddit = document.querySelector("#usersubreddit").value;
@@ -37,6 +39,7 @@
         }
     }
 
+    // Upon dashboard load, checks the weather active status
     function checkWeather(){
         api.getWeather (function(err, res){
             if (err) console.log(err);
@@ -61,6 +64,7 @@
         });
     }
 
+    // Upon dashboard load, checks the quote active status    
     function checkMotivation(){
         api.getMotivation (function(err, res){
             if (err) console.log(err);
@@ -82,6 +86,7 @@
         });
     }
 
+    // Upon dashboard load, checks the word of the day active status    
     function checkUrbanDictionary(){
         api.getUrbanDictionary (function(err, res){
             if (err) console.log(err);
@@ -103,6 +108,7 @@
         });
     }
 
+    // Upon dashboard load, checks the news active status    
     function checkNews(){
         api.getNews (function(err, res){
             if (err) console.log(err);
@@ -124,6 +130,7 @@
         });
     }
 
+    // Upon dashboard load, checks the photo active status    
     function checkPhoto(){
         api.getPhoto (function(err, res){
             if (err) console.log(err);
@@ -145,6 +152,7 @@
         });
     }
 
+    // Upon dashboard load, checks the subreddit active status    
     function checkSubreddit(){
         api.getSubreddit (function(err, res){
             if (err) console.log(err);
@@ -169,26 +177,31 @@
         });
     }
 
+    // Inserts the quote into the example modal
     function insertQuote(motivation){
         var element = document.querySelector('#motivation_example');
         element.innerHTML = motivation;
     }
 
+    // Inserts the word of the day into the example modal    
     function insertUWordOfTheDay(urban){
         var element = document.querySelector('#urbanDictionary_example');
         element.innerHTML = urban;
     }
 
+    // Inserts the subreddit information into the example modal    
     function insertReddit(reddit){
         var element = document.querySelector('#reddit_examplebody');
         element.innerHTML = reddit.replace(/\n/g, "<br>");
     }
 
+    // Inserts the current news into the example modal    
     function insertNews(news){
         var element = document.querySelector('#news_examplebody');
         element.innerHTML = news.replace(/\n/g, "<br>");
     }
 
+    // Inserts a random photo into the example modal    
     function insertPhoto(photo){
         var element = document.querySelector('#photo_examplebody');
         element.innerHTML = `
@@ -203,6 +216,7 @@
 
     window.addEventListener('load', function(){
         
+        // Checking active subscriptions status on load
         checkWeather();
         checkMotivation();
         checkSubreddit();
@@ -210,6 +224,7 @@
         checkNews();
         checkPhoto();
 
+        // Toggle, example and form listeners to call their respective API functions
         document.querySelector('#mot_example').addEventListener('click', function(e){
             api.getQuote(function(err, res){
                 if (err) console.log(err);

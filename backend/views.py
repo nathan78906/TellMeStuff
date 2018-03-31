@@ -295,6 +295,8 @@ def phonenumber(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         phone_number = body['phone_number']
+        if len(phone_number) < 10 or not(phone_number.isdigit()):
+            return HttpResponse("Phone number must be at least 10 digits long!", status=422)
         try:
             profile_entry = Profile.objects.get(user=request.user)
             profile_entry.phone_number = phone_number

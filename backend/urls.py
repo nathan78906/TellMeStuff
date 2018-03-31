@@ -31,4 +31,4 @@ urlpatterns = [
     url(r'^api/photo/', views.photo, name='photo'),
     url(r'^api/photoExample/', views.photo_example, name='photo_example'),
     url(r'^api/dialogflow/', views.dialogflow, name='dialogflow'),
-]
+] 

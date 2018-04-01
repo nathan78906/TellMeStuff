@@ -1,0 +1,361 @@
+{% extends 'backend/base_profile.html' %}
+{% load static %}
+{% block title %}API documentation{% endblock %}
+
+{% block middle_content %}
+<div class="container">
+  <div class="column text-left">
+      <div class="mx-auto">
+          <h3 class="mb-5 mt-5">Documentation</h3>
+          <ul class="list-group">
+              <li class="list-group-item">1. Sign In</a></li>
+              <div>
+                  <ul>
+                      <li>
+                        In order to sign in, we first need to generate a cookie to get a csrf token.<br>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                     </li>
+                     <li>
+                        We then get the token from the txt file that we got by doing <br>
+                        <pre><kbd>grep csrftoken cookies.txt | sed 's/^.*csrftoken\s*//'</kbd></pre>
+                     </li>
+                     <li>
+                        We use this token to log in to the web page using this curl command <br>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"username":"{Your UserName}","password":"{Your Password}"}' -X POST 127.0.0.1:8000/api/signin/</kbd></pre>
+                     </li>
+                     <li>Command Parameters</li>
+                     <ul>
+                        <li>
+                             <pre>Request:<kbd>POST /api/signin</kbd></pre>
+                        </li>
+                        <li>
+                             <pre>Headers:<kbd>Content-Type: application/json,X-CSRFToken: {Generated Token} </kbd></pre>
+                        </li>
+                        <li>
+                            Request Body:</kbd>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre><kbd>username (string): the user's username</kbd></pre>
+                            </li>
+                            <li><pre><kbd>password (string): the user's password</kbd></pre></li>
+                        </ul>
+                    </ul>
+                    <li>Response Codes</li>
+                    <ul>
+                        <li>
+                            <pre><kbd>200</kbd></pre>
+                        </li>
+                    <ul>
+                        <li>Response Body: </li>
+                        <ul>
+                            <li><pre><kbd>username: the username</kbd></pre></li>
+                        </ul>
+                    </ul>
+                    <li>
+                            <pre><kbd>401</kbd></pre>
+                        </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Invalid Credentials</kbd></pre></li>
+                    </ul>
+                    </ul>
+                  </ul>
+              </div>
+              <li class="list-group-item">2. Sign Up</li>
+              <div>
+                <ul>
+                    <li>Curl Command</li>
+                    <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                   <li>Command Parameters</li>
+                   <ul>
+                      <li>
+                           <pre>Request:<kbd>POST api/signup</kbd></pre>
+                      </li>
+                      <li>
+                           <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                      </li>
+                      <li>
+                          <pre>Request Body: </kbd></pre>
+                      </li>
+                      <ul>
+                            <li><pre><kbd>username (string): the user's username</kbd></pre></li>
+                            <li><pre><kbd>password (string): the user's password</kbd></pre></li>
+                            <li><pre><kbd>password_confirm (string): the user's password</kbd></pre></li>
+                        </ul>
+                  </ul>
+                  <li>Response Codes</li>
+                  <ul>
+                      <li>
+                          <pre><kbd>200</kbd></pre>
+                      </li>
+                  <ul>
+                      <li><pre>Response Body: <kbd>username: the user's username</kbd></pre></li>
+                  </ul>
+                  <li>
+                          <pre><kbd>422</kbd></pre>
+                      </li>
+                  <ul>
+                      <li><pre>Response Body:</kbd></pre></li>
+                      <ul>
+                      <li>
+                          <pre><kbd>Passwords do not match</kbd></pre>
+                      </li>
+                      <li>
+                            <pre><kbd>Password must be at least 6 characters long</kbd></pre>
+                        </li>
+                    </ul>
+                    <li>
+                        <pre><kbd>400</kbd></pre>
+                    </li>
+                    <ul>
+                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
+                    </ul>
+                    <li>
+                        <pre><kbd>405</kbd></pre>
+                    </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
+                    </ul>                     
+                  </ul>
+                  <li>
+                        <pre><kbd>409</kbd></pre>
+                    </li>
+                <ul>
+                    <li><pre>Response Body: <kbd>Username already exists</kbd></pre></li>
+                </ul>
+                <li>
+                    <pre><kbd>400</kbd></pre>
+                </li>
+                <ul>
+                <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
+                </ul>
+                <li>
+                    <pre><kbd>405</kbd></pre>
+                </li>
+                <ul>
+                    <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
+                </ul>
+                  </ul>
+                </ul>
+            </div>
+              <li class="list-group-item">3. Set Location</li>
+              <div>
+                    <ul>
+                        <li>Curl Command</li>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                       <li>Command Parameters</li>
+                       <ul>
+                          <li>
+                               <pre>Request:<kbd>POST api/location</kbd></pre>
+                          </li>
+                          <li>
+                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                          </li>
+                          <li>
+                              Request Body:
+                          </li>
+                          <ul>
+                              <li>location (string): <kbd>a random valid city</kbd></li>
+                          </ul>
+                      </ul>
+                      <li>Response Codes</li>
+                      <ul>
+                          <li>
+                              <pre><kbd>200</kbd></pre>
+                          </li>
+                      <ul>
+                          <li><pre>Response Body: <kbd>location : the user's city</kbd></pre></li>
+                      </ul>
+                      <li>
+                              <pre><kbd>400</kbd></pre>
+                          </li>
+                      <ul>
+                          <li><pre>Response Body: <kbd>Invalid Location</kbd></pre></li>
+                      </ul>
+                      <li>
+                            <pre><kbd>500</kbd></pre>
+                        </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Internal Server Error</kbd></pre></li>
+                    </ul>
+                    <li>
+                        <pre><kbd>400</kbd></pre>
+                    </li>
+                    <ul>
+                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
+                    </ul>
+                    <li>
+                        <pre><kbd>405</kbd></pre>
+                    </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
+                    </ul>
+                      </ul>
+                    </ul>
+                </div>
+              <li class="list-group-item">4. Set Subreddit</li>
+              <div>
+                    <ul>
+                        <li>Curl Command</li>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                       <li>Command Parameters</li>
+                       <ul>
+                          <li>
+                               <pre>Request:<kbd>POST api/subreddit</kbd></pre>
+                          </li>
+                          <li>
+                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                          </li>
+                          <li>
+                              Request Body:
+                          </li>
+                          <ul>
+                            <li><pre><kbd>subreddit (string): some valid subreddit</kbd></pre></li>
+                        </ul>
+                      </ul>
+                      <li>Response Codes</li>
+                      <ul>
+                          <li>
+                              <pre><kbd>200</kbd></pre>
+                          </li>
+                      <ul>
+                        <li>
+                            <pre>Request Body: <kbd>subreddit : the user's subreddit</kbd></pre> 
+                        </li>
+                      </ul>
+                      <li>
+                              <pre><kbd>400</kbd></pre>
+                          </li>
+                      <ul>
+                          <li><pre>Response Body: <kbd>Invalid Subreddit</kbd></pre></li>
+                      </ul>
+                      <li>
+                            <pre><kbd>500</kbd></pre>
+                        </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Internal Server Error</kbd></pre></li>
+                    </ul>
+                    <li>
+                        <pre><kbd>400</kbd></pre>
+                    </li>
+                    <ul>
+                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
+                    </ul>
+                    <li>
+                        <pre><kbd>405</kbd></pre>
+                    </li>
+                    <ul>
+                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
+                    </ul>
+                      </ul>
+                    </ul>
+                </div>
+              <li class="list-group-item">5. Get Subreddit Subscription Status</li>
+              <div>
+                    <ul>
+                        <li>Curl Command</li>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                       <li>Command Parameters</li>
+                       <ul>
+                          <li>
+                               <pre>Request:<kbd>Get api/subreddit</kbd></pre>
+                          </li>
+                          <li>
+                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                          </li>
+                      </ul>
+                      <li>Response Codes</li>
+                      <ul>
+                          <li>
+                              <pre><kbd>200</kbd></pre>
+                          </li>
+                      <ul>
+                          <li>Response Body: </li>
+                          <ul>
+                            <li>
+                                <pre><kbd>subreddit: the user's subreddit</kbd></pre>
+                            </li>
+                            <li><pre><kbd>active: the current subcription status</kbd></pre></li>
+                        </ul>
+                        </ul>
+                      </ul>
+                    </ul>
+                </div>
+              <li class="list-group-item">6. Change the Subscription Status</a></li>
+              <div>
+                    <ul>
+                        <li>Curl Command</li>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                       <li>Command Parameters</li>
+                       <ul>
+                          <li>
+                               <pre>Request:<kbd>PATCH api/toggle</kbd></pre>
+                          </li>
+                          <li>
+                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                          </li>
+                          <li>
+                              <pre>Request Body: </kbd></pre>
+                          </li>
+                          <ul>
+                            <li>
+                                <pre><kbd>toggle_type(string):</kbd></pre>
+                            </li>
+                            <ul>
+                                <li><kbd>weather</kbd></li>
+                                <li><kbd>subreddit</kbd></li>
+                                <li><kbd>urban</kbd></li>
+                                <li><kbd>news</kbd></li>
+                                <li><kbd>photo</kbd></li>
+                                <li><kbd>motivation</kbd></li>
+                            </ul>
+                            <li><pre><kbd>action (string):</kbd></pre></li>
+                            <ul>
+                                <li><kbd>True</kbd></li>
+                                <li><kbd>False</kbd></li>
+                            </ul>
+                        </ul>
+                      </ul>
+                      <li>Response Codes</li>
+                      <ul>
+                          <li>
+                              <pre><kbd>200</kbd></pre>
+                          </li>
+                      <ul>
+                                                <li><pre>Response Body:</kbd></pre></li>
+                      <ul>
+                      <li>
+                          <pre><kbd>toggle_type: the selected user subscription </kbd></pre>
+                      </li>
+                      <li>
+                            <pre><kbd>action: the selected toggle</kbd></pre>
+                        </li>
+                    </ul>
+                      </ul>
+                      <li>
+                              <pre><kbd>400</kbd></pre>
+                          </li>
+                      <ul>
+                        <li><pre>Response Body:</kbd></pre></li>
+                        <ul>
+                        <li>
+                            <pre><kbd>Internal Server Error</kbd></pre>
+                        </li>
+                        <li>
+                              <pre><kbd>Please submit a location first</kbd></pre>
+                          </li>
+                          <li>
+                            <pre><kbd>Please submit a subreddit first</kbd></pre>
+                        </li>
+                      </ul>
+                      </ul>
+                      </ul>
+                    </ul>
+                </div>
+              <li class="list-group-item"><a href="https://developers.facebook.com/products/messenger/overview/">Facebook messenger documentation</a></li>
+              <li class="list-group-item"><a href="https://support.cloudflare.com/hc/en-us/articles/205893698-Configure-Cloudflare-and-Heroku-over-HTTPS">SSL setup</a></li>
+          </ul>
+      </div>
+  </div>
+</div>
+{% endblock %}

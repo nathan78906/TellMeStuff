@@ -587,6 +587,7 @@ def credits(request):
         return render(request, 'backend/credits_loggedin.html')
     return render(request, 'backend/credits.html')
 
+# Checks if user is authenticated and redirects the user to documentation page 
 def documentation(request):
     if request.user.is_authenticated:
         return render(request, 'backend/api_documentation_loggedin.html')

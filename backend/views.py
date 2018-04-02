@@ -95,7 +95,7 @@ def dialogflow(request):
 
                 if UrbanDictionary.objects.filter(user=user).exists():
                     if UrbanDictionary.objects.get(user=user).active:
-                        result = get_urbandictionary(UrbanDictionary)
+                        result = get_urbandictionary()
                         json_ret["messages"].append({"speech": result,"type": 0})
 
                 if Subreddit.objects.filter(user=user).exists():

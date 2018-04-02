@@ -13,7 +13,7 @@
     function checkPhoneNumber(){
         api.getPhoneNumber(function(err, res){
             if (err) console.log(err);
-            if (res.phone_number != ""){
+            if (res.phone_number != "" || res.phone_number == null){
                 document.querySelector('#phonenum').placeholder = res.phone_number;  
             }
             else{

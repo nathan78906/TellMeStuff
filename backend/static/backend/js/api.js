@@ -49,7 +49,6 @@ var api = (function(){
     }
 
     module.setSubreddit = function(subreddit, callback){
-        console.log(subreddit)
         send("POST", "/api/subreddit/", {subreddit: subreddit}, callback);
     }
 

@@ -67,7 +67,10 @@ def get_news():
     title = news["title"]
     description = news["description"]
     news_url = news["url"]
-    body = "Headline: " + title + "\n\n" + "Summary: " + description + "\n\n" + news_url
+    if description == "":
+        body = "Headline: " + title + "\n\n" + news_url
+    else:
+        body = "Headline: " + title + "\n\n" + "Summary: " + description + "\n\n" + news_url
     return body
 
 # Gets random photo info

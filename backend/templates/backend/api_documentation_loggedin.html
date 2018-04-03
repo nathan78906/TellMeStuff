@@ -26,334 +26,1211 @@
                      <li>Command Parameters</li>
                      <ul>
                         <li>
-                             <pre>Request:<kbd>POST /api/signin</kbd></pre>
+                            <pre>Request: <code>POST /api/signin/</code></pre>
                         </li>
                         <li>
-                             <pre>Headers:<kbd>Content-Type: application/json,X-CSRFToken: {Generated Token} </kbd></pre>
+                             <pre>Headers: <code>Content-Type: application/json,X-CSRFToken: {Generated Token} </code></pre>
                         </li>
                         <li>
-                            Request Body:</kbd>
+                            <pre>Request Body:</pre>
                         </li>
                         <ul>
                             <li>
-                                <pre><kbd>username (string): the user's username</kbd></pre>
+                                <pre><code>username (string): the user's username</code></pre>
                             </li>
-                            <li><pre><kbd>password (string): the user's password</kbd></pre></li>
+                            <li><pre><code>password (string): the user's password</code></pre></li>
                         </ul>
                     </ul>
                     <li>Response Codes</li>
                     <ul>
                         <li>
-                            <pre><kbd>200</kbd></pre>
+                            <pre><code>200</code></pre>
                         </li>
-                    <ul>
-                        <li>Response Body: </li>
                         <ul>
-                            <li><pre><kbd>username: the username</kbd></pre></li>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>username: the username</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>400</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>One or more parameters are missing</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>401</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>Invalid credentials</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>405</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>Method not allowed</code></pre>
+                                </li>
+                            </ul>
                         </ul>
                     </ul>
-                    <li>
-                            <pre><kbd>401</kbd></pre>
-                        </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Invalid Credentials</kbd></pre></li>
-                    </ul>
-                    </ul>
-                  </ul>
               </div>
               <li class="list-group-item">2. Sign Up</li>
               <div>
                 <ul>
                     <li>Curl Command</li>
-                    <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                    <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"username": "username", "password": "password", "password_confirm": "password_confirm"}' -X POST 127.0.0.1:8000/api/signup/</kbd></pre>
                    <li>Command Parameters</li>
                    <ul>
                       <li>
-                           <pre>Request:<kbd>POST api/signup</kbd></pre>
+                           <pre>Request: <code>POST /api/signup/</code></pre>
                       </li>
                       <li>
-                           <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                           <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
                       </li>
                       <li>
-                          <pre>Request Body: </kbd></pre>
+                          <pre>Request Body: </pre>
                       </li>
                       <ul>
-                            <li><pre><kbd>username (string): the user's username</kbd></pre></li>
-                            <li><pre><kbd>password (string): the user's password</kbd></pre></li>
-                            <li><pre><kbd>password_confirm (string): the user's password</kbd></pre></li>
-                        </ul>
+                            <li><pre><code>username (string): the user's username</code></pre></li>
+                            <li><pre><code>password (string): the user's password</code></pre></li>
+                            <li><pre><code>password_confirm (string): the user's password</code></pre></li>
+                      </ul>
                   </ul>
                   <li>Response Codes</li>
                   <ul>
-                      <li>
-                          <pre><kbd>200</kbd></pre>
-                      </li>
-                  <ul>
-                      <li><pre>Response Body: <kbd>username: the user's username</kbd></pre></li>
-                  </ul>
-                  <li>
-                          <pre><kbd>422</kbd></pre>
-                      </li>
-                  <ul>
-                      <li><pre>Response Body:</kbd></pre></li>
-                      <ul>
-                      <li>
-                          <pre><kbd>Passwords do not match</kbd></pre>
-                      </li>
-                      <li>
-                            <pre><kbd>Password must be at least 6 characters long</kbd></pre>
+                        <li>
+                            <pre><code>200</code></pre>
                         </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>username: the username</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>400</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>One or more parameters are missing</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>405</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>Method not allowed</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>409</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>Username already exists</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
+                        <li>
+                            <pre><code>422</code></pre>
+                        </li>
+                        <ul>
+                            <li>
+                                <pre>Response Body: </pre></li>
+                            <ul>
+                                <li>
+                                    <pre><code>Password must be at least 6 characters long!</code></pre>
+                                </li>
+                                <li>
+                                    <pre><code>Passwords do not match</code></pre>
+                                </li>
+                            </ul>
+                        </ul>
                     </ul>
-                    <li>
-                        <pre><kbd>400</kbd></pre>
-                    </li>
-                    <ul>
-                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
-                    </ul>
-                    <li>
-                        <pre><kbd>405</kbd></pre>
-                    </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
-                    </ul>                     
-                  </ul>
-                  <li>
-                        <pre><kbd>409</kbd></pre>
-                    </li>
-                <ul>
-                    <li><pre>Response Body: <kbd>Username already exists</kbd></pre></li>
-                </ul>
-                <li>
-                    <pre><kbd>400</kbd></pre>
-                </li>
-                <ul>
-                <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
-                </ul>
-                <li>
-                    <pre><kbd>405</kbd></pre>
-                </li>
-                <ul>
-                    <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
-                </ul>
-                  </ul>
-                </ul>
             </div>
               <li class="list-group-item">3. Set Location</li>
               <div>
                     <ul>
                         <li>Curl Command</li>
-                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"location": "location"}' -X POST 127.0.0.1:8000/api/location/</kbd></pre>
                        <li>Command Parameters</li>
                        <ul>
                           <li>
-                               <pre>Request:<kbd>POST api/location</kbd></pre>
+                               <pre>Request: <code>POST /api/location/</code></pre>
                           </li>
                           <li>
-                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                               <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
                           </li>
                           <li>
-                              Request Body:
+                              <pre>Request Body: </pre>
                           </li>
                           <ul>
-                              <li>location (string): <kbd>a random valid city</kbd></li>
+                                <li><pre><code>location (string): the city</code></pre></li>
                           </ul>
                       </ul>
                       <li>Response Codes</li>
                       <ul>
-                          <li>
-                              <pre><kbd>200</kbd></pre>
-                          </li>
-                      <ul>
-                          <li><pre>Response Body: <kbd>location : the user's city</kbd></pre></li>
-                      </ul>
-                      <li>
-                              <pre><kbd>400</kbd></pre>
-                          </li>
-                      <ul>
-                          <li><pre>Response Body: <kbd>Invalid Location</kbd></pre></li>
-                      </ul>
-                      <li>
-                            <pre><kbd>500</kbd></pre>
-                        </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Internal Server Error</kbd></pre></li>
-                    </ul>
-                    <li>
-                        <pre><kbd>400</kbd></pre>
-                    </li>
-                    <ul>
-                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
-                    </ul>
-                    <li>
-                        <pre><kbd>405</kbd></pre>
-                    </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
-                    </ul>
-                      </ul>
-                    </ul>
+                            <li>
+                                <pre><code>200</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>location: the location</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>400</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>One or more parameters are missing</code></pre>
+                                    </li>
+                                    <li>
+                                        <pre><code>Invalid location</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>401</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Access Denied</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>405</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Method not allowed</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>500</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Internal server error</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </ul>
                 </div>
               <li class="list-group-item">4. Set Subreddit</li>
               <div>
                     <ul>
                         <li>Curl Command</li>
-                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"subreddit": "subreddit"}' -X POST 127.0.0.1:8000/api/subreddit/</kbd></pre>
                        <li>Command Parameters</li>
                        <ul>
                           <li>
-                               <pre>Request:<kbd>POST api/subreddit</kbd></pre>
+                               <pre>Request: <code>POST /api/subreddit/</code></pre>
                           </li>
                           <li>
-                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                               <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
                           </li>
                           <li>
-                              Request Body:
+                              <pre>Request Body:</pre>
                           </li>
                           <ul>
-                            <li><pre><kbd>subreddit (string): some valid subreddit</kbd></pre></li>
+                            <li><pre><code>subreddit (string): the subreddit</code></pre></li>
                         </ul>
                       </ul>
                       <li>Response Codes</li>
                       <ul>
-                          <li>
-                              <pre><kbd>200</kbd></pre>
-                          </li>
-                      <ul>
-                        <li>
-                            <pre>Request Body: <kbd>subreddit : the user's subreddit</kbd></pre> 
-                        </li>
-                      </ul>
-                      <li>
-                              <pre><kbd>400</kbd></pre>
-                          </li>
-                      <ul>
-                          <li><pre>Response Body: <kbd>Invalid Subreddit</kbd></pre></li>
-                      </ul>
-                      <li>
-                            <pre><kbd>500</kbd></pre>
-                        </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Internal Server Error</kbd></pre></li>
-                    </ul>
-                    <li>
-                        <pre><kbd>400</kbd></pre>
-                    </li>
-                    <ul>
-                    <li><pre>Response Body: <kbd>One or more parameters missing</kbd></pre></li>
-                    </ul>
-                    <li>
-                        <pre><kbd>405</kbd></pre>
-                    </li>
-                    <ul>
-                        <li><pre>Response Body: <kbd>Method not allowed</kbd></pre></li>
-                    </ul>
-                      </ul>
-                    </ul>
+                            <li>
+                                <pre><code>200</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>subreddit: the subreddit</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>400</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>One or more parameters are missing</code></pre>
+                                    </li>
+                                    <li>
+                                        <pre><code>Invalid subreddit</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>401</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Access Denied</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>405</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Method not allowed</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>500</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Internal server error</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </ul>
                 </div>
               <li class="list-group-item">5. Get Subreddit Subscription Status</li>
               <div>
                     <ul>
                         <li>Curl Command</li>
-                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/subreddit/</kbd></pre>
                        <li>Command Parameters</li>
                        <ul>
                           <li>
-                               <pre>Request:<kbd>Get api/subreddit</kbd></pre>
+                               <pre>Request: <code>GET /api/subreddit/</code></pre>
                           </li>
                           <li>
-                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                               <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token}</code></pre>
                           </li>
                       </ul>
                       <li>Response Codes</li>
                       <ul>
-                          <li>
-                              <pre><kbd>200</kbd></pre>
-                          </li>
-                      <ul>
-                          <li>Response Body: </li>
-                          <ul>
                             <li>
-                                <pre><kbd>subreddit: the user's subreddit</kbd></pre>
+                                <pre><code>200</code></pre>
                             </li>
-                            <li><pre><kbd>active: the current subcription status</kbd></pre></li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>subreddit: the subreddit</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>401</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Access Denied</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>405</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Method not allowed</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
                         </ul>
-                        </ul>
-                      </ul>
-                    </ul>
                 </div>
-              <li class="list-group-item">6. Change the Subscription Status</a></li>
+              <li class="list-group-item">6. Change subscription status</a></li>
               <div>
                     <ul>
                         <li>Curl Command</li>
-                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ 127.0.0.1:8000/signin/</kbd></pre>
+                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"type": "type", "action": "action"}' -X PATCH 127.0.0.1:8000/api/toggle/</kbd></pre>
                        <li>Command Parameters</li>
                        <ul>
                           <li>
-                               <pre>Request:<kbd>PATCH api/toggle</kbd></pre>
+                               <pre>Request: <code>PATCH /api/toggle/</code></pre>
                           </li>
                           <li>
-                               <pre>Headers:<kbd>Content-Type: application/json, X-CSRFToken: {Generated Token} </kbd></pre>
+                               <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
                           </li>
                           <li>
-                              <pre>Request Body: </kbd></pre>
+                              <pre>Request Body: </code></pre>
                           </li>
                           <ul>
                             <li>
-                                <pre><kbd>toggle_type(string):</kbd></pre>
+                                <pre><code>toggle_type(string):</code></pre>
                             </li>
                             <ul>
-                                <li><kbd>weather</kbd></li>
-                                <li><kbd>subreddit</kbd></li>
-                                <li><kbd>urban</kbd></li>
-                                <li><kbd>news</kbd></li>
-                                <li><kbd>photo</kbd></li>
-                                <li><kbd>motivation</kbd></li>
+                                <li><code>weather</code></li>
+                                <li><code>subreddit</code></li>
+                                <li><code>urban</code></li>
+                                <li><code>news</code></li>
+                                <li><code>photo</code></li>
+                                <li><code>motivation</code></li>
                             </ul>
-                            <li><pre><kbd>action (string):</kbd></pre></li>
+                            <li><pre><code>action (string):</code></pre></li>
                             <ul>
-                                <li><kbd>True</kbd></li>
-                                <li><kbd>False</kbd></li>
+                                <li><code>True</code></li>
+                                <li><code>False</code></li>
                             </ul>
                         </ul>
                       </ul>
                       <li>Response Codes</li>
                       <ul>
-                          <li>
-                              <pre><kbd>200</kbd></pre>
-                          </li>
-                      <ul>
-                                                <li><pre>Response Body:</kbd></pre></li>
-                      <ul>
-                      <li>
-                          <pre><kbd>toggle_type: the selected user subscription </kbd></pre>
-                      </li>
-                      <li>
-                            <pre><kbd>action: the selected toggle</kbd></pre>
-                        </li>
-                    </ul>
-                      </ul>
-                      <li>
-                              <pre><kbd>400</kbd></pre>
-                          </li>
-                      <ul>
-                        <li><pre>Response Body:</kbd></pre></li>
-                        <ul>
-                        <li>
-                            <pre><kbd>Internal Server Error</kbd></pre>
-                        </li>
-                        <li>
-                              <pre><kbd>Please submit a location first</kbd></pre>
-                          </li>
-                          <li>
-                            <pre><kbd>Please submit a subreddit first</kbd></pre>
-                        </li>
-                      </ul>
-                      </ul>
-                      </ul>
-                    </ul>
+                            <li>
+                                <pre><code>200</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>type: the toggle type</code></pre>
+                                    </li>
+                                    <li>
+                                        <pre><code>action: the action for the toggle type</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>400</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Please submit a location first</code></pre>
+                                    </li>
+                                    <li>
+                                        <pre><code>Please submit a subreddit first</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>401</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Access Denied</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>405</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Method not allowed</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <li>
+                                <pre><code>500</code></pre>
+                            </li>
+                            <ul>
+                                <li>
+                                    <pre>Response Body: </pre></li>
+                                <ul>
+                                    <li>
+                                        <pre><code>Internal server error</code></pre>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </ul>
                 </div>
-              <li class="list-group-item"><a href="https://developers.facebook.com/products/messenger/overview/">Facebook messenger documentation</a></li>
-              <li class="list-group-item"><a href="https://support.cloudflare.com/hc/en-us/articles/205893698-Configure-Cloudflare-and-Heroku-over-HTTPS">SSL setup</a></li>
+                <li class="list-group-item">7. Get quote example</li>
+                <div>
+                      <ul>
+                          <li>Curl Command</li>
+                          <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/getQuote/</kbd></pre>
+                         <li>Command Parameters</li>
+                         <ul>
+                            <li>
+                                 <pre>Request: <code>GET /api/getQuote/</code></pre>
+                            </li>
+                            <li>
+                                 <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                            </li>
+                        </ul>
+                        <li>Response Codes</li>
+                        <ul>
+                              <li>
+                                  <pre><code>200</code></pre>
+                              </li>
+                              <ul>
+                                  <li>
+                                      <pre>Response Body: </pre></li>
+                                  <ul>
+                                      <li>
+                                          <pre><code>content: the example</code></pre>
+                                      </li>
+                                  </ul>
+                              </ul>
+                              <li>
+                                  <pre><code>401</code></pre>
+                              </li>
+                              <ul>
+                                  <li>
+                                      <pre>Response Body: </pre></li>
+                                  <ul>
+                                      <li>
+                                          <pre><code>Access Denied</code></pre>
+                                      </li>
+                                  </ul>
+                              </ul>
+                              <li>
+                                  <pre><code>405</code></pre>
+                              </li>
+                              <ul>
+                                  <li>
+                                      <pre>Response Body: </pre></li>
+                                  <ul>
+                                      <li>
+                                          <pre><code>Method not allowed</code></pre>
+                                      </li>
+                                  </ul>
+                              </ul>
+                  </div>
+                  <li class="list-group-item">8. Get motivation status</li>
+                  <div>
+                        <ul>
+                            <li>Curl Command</li>
+                            <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/getMotivation/</kbd></pre>
+                           <li>Command Parameters</li>
+                           <ul>
+                              <li>
+                                   <pre>Request: <code>GET /api/getMotivation/</code></pre>
+                              </li>
+                              <li>
+                                   <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                              </li>
+                          </ul>
+                          <li>Response Codes</li>
+                          <ul>
+                                <li>
+                                    <pre><code>200</code></pre>
+                                </li>
+                                <ul>
+                                    <li>
+                                        <pre>Response Body: </pre></li>
+                                    <ul>
+                                        <li>
+                                            <pre><code>active: active or not</code></pre>
+                                        </li>
+                                    </ul>
+                                </ul>
+                                <li>
+                                    <pre><code>401</code></pre>
+                                </li>
+                                <ul>
+                                    <li>
+                                        <pre>Response Body: </pre></li>
+                                    <ul>
+                                        <li>
+                                            <pre><code>Access Denied</code></pre>
+                                        </li>
+                                    </ul>
+                                </ul>
+                                <li>
+                                    <pre><code>405</code></pre>
+                                </li>
+                                <ul>
+                                    <li>
+                                        <pre>Response Body: </pre></li>
+                                    <ul>
+                                        <li>
+                                            <pre><code>Method not allowed</code></pre>
+                                        </li>
+                                    </ul>
+                                </ul>
+                    </div>
+                    <li class="list-group-item">9. Get word of the day example</li>
+                    <div>
+                          <ul>
+                              <li>Curl Command</li>
+                              <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/getUWordOfTheDay/</kbd></pre>
+                             <li>Command Parameters</li>
+                             <ul>
+                                <li>
+                                     <pre>Request: <code>GET /api/getUWordOfTheDay/</code></pre>
+                                </li>
+                                <li>
+                                     <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                </li>
+                            </ul>
+                            <li>Response Codes</li>
+                            <ul>
+                                  <li>
+                                      <pre><code>200</code></pre>
+                                  </li>
+                                  <ul>
+                                      <li>
+                                          <pre>Response Body: </pre></li>
+                                      <ul>
+                                          <li>
+                                              <pre><code>content: the example</code></pre>
+                                          </li>
+                                      </ul>
+                                  </ul>
+                                  <li>
+                                      <pre><code>401</code></pre>
+                                  </li>
+                                  <ul>
+                                      <li>
+                                          <pre>Response Body: </pre></li>
+                                      <ul>
+                                          <li>
+                                              <pre><code>Access Denied</code></pre>
+                                          </li>
+                                      </ul>
+                                  </ul>
+                                  <li>
+                                      <pre><code>405</code></pre>
+                                  </li>
+                                  <ul>
+                                      <li>
+                                          <pre>Response Body: </pre></li>
+                                      <ul>
+                                          <li>
+                                              <pre><code>Method not allowed</code></pre>
+                                          </li>
+                                      </ul>
+                                  </ul>
+                      </div>
+                      <li class="list-group-item">10. Get word of the day status</li>
+                      <div>
+                            <ul>
+                                <li>Curl Command</li>
+                                <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/getUrbanDictionary/</kbd></pre>
+                               <li>Command Parameters</li>
+                               <ul>
+                                  <li>
+                                       <pre>Request: <code>GET /api/getUrbanDictionary/</code></pre>
+                                  </li>
+                                  <li>
+                                       <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                  </li>
+                              </ul>
+                              <li>Response Codes</li>
+                              <ul>
+                                    <li>
+                                        <pre><code>200</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>active: active or not</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                    <li>
+                                        <pre><code>401</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>Access Denied</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                    <li>
+                                        <pre><code>405</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>Method not allowed</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                        </div>
+                        <li class="list-group-item">11. Get weather status</li>
+                        <div>
+                              <ul>
+                                  <li>Curl Command</li>
+                                  <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/getWeather/</kbd></pre>
+                                 <li>Command Parameters</li>
+                                 <ul>
+                                    <li>
+                                         <pre>Request: <code>GET /api/getWeather/</code></pre>
+                                    </li>
+                                    <li>
+                                         <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                    </li>
+                                </ul>
+                                <li>Response Codes</li>
+                                <ul>
+                                      <li>
+                                          <pre><code>200</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>location: the location</code></pre>
+                                              </li>
+                                              <li>
+                                                  <pre><code>active: active or not</code></pre>
+                                              </li>
+                                          </ul>
+                                      </ul>
+                                      <li>
+                                          <pre><code>401</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>Access Denied</code></pre>
+                                              </li>
+                                          </ul>
+                                      </ul>
+                                      <li>
+                                          <pre><code>405</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>Method not allowed</code></pre>
+                                              </li>
+                                          </ul>
+                                      </ul>
+                          </div>   
+                          <li class="list-group-item">12. Get user info</li>
+                          <div>
+                                <ul>
+                                    <li>Curl Command</li>
+                                    <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/user/</kbd></pre>
+                                   <li>Command Parameters</li>
+                                   <ul>
+                                      <li>
+                                           <pre>Request: <code>GET /api/user/</code></pre>
+                                      </li>
+                                      <li>
+                                           <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                      </li>
+                                  </ul>
+                                  <li>Response Codes</li>
+                                  <ul>
+                                        <li>
+                                            <pre><code>200</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>user_id: the user's id</code></pre>
+                                                </li>
+                                                <li>
+                                                    <pre><code>user_name: the user's name</code></pre>
+                                                </li>
+                                                <li>
+                                                    <pre><code>profile: if the user has a profile or not</code></pre>
+                                                </li>                                                
+                                            </ul>
+                                        </ul>
+                                        <li>
+                                            <pre><code>401</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>Access Denied</code></pre>
+                                                </li>
+                                            </ul>
+                                        </ul>
+                                        <li>
+                                            <pre><code>405</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>Method not allowed</code></pre>
+                                                </li>
+                                            </ul>
+                                        </ul>
+                        </div>   
+                        <li class="list-group-item">13. Store a user's phone number</li>
+                        <div>
+                              <ul>
+                                  <li>Curl Command</li>
+                                  <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" -d '{"phone_number": "phone_number"}' -X POST 127.0.0.1:8000/api/phonenumber/</kbd></pre>
+                                 <li>Command Parameters</li>
+                                 <ul>
+                                    <li>
+                                         <pre>Request: <code>POST /api/phonenumber/</code></pre>
+                                    </li>
+                                    <li>
+                                         <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                    </li>
+                                    <li>
+                                        <pre>Request Body:</pre>
+                                    </li>
+                                    <ul>
+                                        <li><pre><code>phone_number (string): the user's phone number</code></pre></li>
+                                    </ul>
+                                </ul>
+                                <li>Response Codes</li>
+                                <ul>
+                                    <li>
+                                        <pre><code>200</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>phone_number: the user's phone number</code></pre>
+                                            </li>                                             
+                                        </ul>
+                                    </ul>
+                                    <li>
+                                        <pre><code>401</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>Access Denied</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                    <li>
+                                        <pre><code>405</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>Method not allowed</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>    
+                                    <li>
+                                        <pre><code>422</code></pre>
+                                    </li>
+                                    <ul>
+                                        <li>
+                                            <pre>Response Body: </pre></li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>Phone number must be at least 10 digits long!</code></pre>
+                                            </li>
+                                        </ul>
+                                    </ul>                           
+                          </div>
+                           <li class="list-group-item">14. Get a user's phone number</li>
+                          <div>
+                                <ul>
+                                    <li>Curl Command</li>
+                                    <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/phonenumber/</kbd></pre>
+                                   <li>Command Parameters</li>
+                                   <ul>
+                                      <li>
+                                           <pre>Request: <code>GET /api/phonenumber/</code></pre>
+                                      </li>
+                                      <li>
+                                           <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                      </li>
+                                  </ul>
+                                  <li>Response Codes</li>
+                                  <ul>
+                                      <li>
+                                          <pre><code>200</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>phone_number: the user's phone number</code></pre>
+                                              </li>                                             
+                                          </ul>
+                                      </ul>
+                                      <li>
+                                          <pre><code>401</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>Access Denied</code></pre>
+                                              </li>
+                                          </ul>
+                                      </ul>
+                                      <li>
+                                          <pre><code>405</code></pre>
+                                      </li>
+                                      <ul>
+                                          <li>
+                                              <pre>Response Body: </pre></li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>Method not allowed</code></pre>
+                                              </li>
+                                          </ul>
+                                      </ul>                             
+                            </div> 
+                            <li class="list-group-item">15. Get news status</li>
+                            <div>
+                                  <ul>
+                                      <li>Curl Command</li>
+                                      <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/news/</kbd></pre>
+                                     <li>Command Parameters</li>
+                                     <ul>
+                                        <li>
+                                             <pre>Request: <code>GET /api/news/</code></pre>
+                                        </li>
+                                        <li>
+                                             <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                        </li>
+                                    </ul>
+                                    <li>Response Codes</li>
+                                    <ul>
+                                        <li>
+                                            <pre><code>200</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>active: active or not</code></pre>
+                                                </li>                                             
+                                            </ul>
+                                        </ul>
+                                        <li>
+                                            <pre><code>401</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>Access Denied</code></pre>
+                                                </li>
+                                            </ul>
+                                        </ul>
+                                        <li>
+                                            <pre><code>405</code></pre>
+                                        </li>
+                                        <ul>
+                                            <li>
+                                                <pre>Response Body: </pre></li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>Method not allowed</code></pre>
+                                                </li>
+                                            </ul>
+                                        </ul>                             
+                              </div>    
+                              <li class="list-group-item">16. Get news example</li>
+                              <div>
+                                    <ul>
+                                        <li>Curl Command</li>
+                                        <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/newsExample/</kbd></pre>
+                                       <li>Command Parameters</li>
+                                       <ul>
+                                          <li>
+                                               <pre>Request: <code>GET /api/newsExample/</code></pre>
+                                          </li>
+                                          <li>
+                                               <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                          </li>
+                                      </ul>
+                                      <li>Response Codes</li>
+                                      <ul>
+                                          <li>
+                                              <pre><code>200</code></pre>
+                                          </li>
+                                          <ul>
+                                              <li>
+                                                  <pre>Response Body: </pre></li>
+                                              <ul>
+                                                  <li>
+                                                      <pre><code>content: the example</code></pre>
+                                                  </li>                                             
+                                              </ul>
+                                          </ul>
+                                          <li>
+                                              <pre><code>401</code></pre>
+                                          </li>
+                                          <ul>
+                                              <li>
+                                                  <pre>Response Body: </pre></li>
+                                              <ul>
+                                                  <li>
+                                                      <pre><code>Access Denied</code></pre>
+                                                  </li>
+                                              </ul>
+                                          </ul>
+                                          <li>
+                                              <pre><code>405</code></pre>
+                                          </li>
+                                          <ul>
+                                              <li>
+                                                  <pre>Response Body: </pre></li>
+                                              <ul>
+                                                  <li>
+                                                      <pre><code>Method not allowed</code></pre>
+                                                  </li>
+                                              </ul>
+                                          </ul>                             
+                                </div>    
+                                <li class="list-group-item">17. Get reddit example</li>
+                                <div>
+                                      <ul>
+                                          <li>Curl Command</li>
+                                          <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/redditExample/</kbd></pre>
+                                         <li>Command Parameters</li>
+                                         <ul>
+                                            <li>
+                                                 <pre>Request: <code>GET /api/redditExample/</code></pre>
+                                            </li>
+                                            <li>
+                                                 <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                            </li>
+                                        </ul>
+                                        <li>Response Codes</li>
+                                        <ul>
+                                            <li>
+                                                <pre><code>200</code></pre>
+                                            </li>
+                                            <ul>
+                                                <li>
+                                                    <pre>Response Body: </pre></li>
+                                                <ul>
+                                                    <li>
+                                                        <pre><code>content: the example</code></pre>
+                                                    </li>                                             
+                                                </ul>
+                                            </ul>
+                                            <li>
+                                                <pre><code>401</code></pre>
+                                            </li>
+                                            <ul>
+                                                <li>
+                                                    <pre>Response Body: </pre></li>
+                                                <ul>
+                                                    <li>
+                                                        <pre><code>Access Denied</code></pre>
+                                                    </li>
+                                                </ul>
+                                            </ul>
+                                            <li>
+                                                <pre><code>405</code></pre>
+                                            </li>
+                                            <ul>
+                                                <li>
+                                                    <pre>Response Body: </pre></li>
+                                                <ul>
+                                                    <li>
+                                                        <pre><code>Method not allowed</code></pre>
+                                                    </li>
+                                                </ul>
+                                            </ul>                             
+                                  </div>   
+                                  <li class="list-group-item">18. Get photo status</li>
+                                  <div>
+                                        <ul>
+                                            <li>Curl Command</li>
+                                            <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/photo/</kbd></pre>
+                                           <li>Command Parameters</li>
+                                           <ul>
+                                              <li>
+                                                   <pre>Request: <code>GET /api/photo/</code></pre>
+                                              </li>
+                                              <li>
+                                                   <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                              </li>
+                                          </ul>
+                                          <li>Response Codes</li>
+                                          <ul>
+                                              <li>
+                                                  <pre><code>200</code></pre>
+                                              </li>
+                                              <ul>
+                                                  <li>
+                                                      <pre>Response Body: </pre></li>
+                                                  <ul>
+                                                      <li>
+                                                          <pre><code>active: active or not</code></pre>
+                                                      </li>                                             
+                                                  </ul>
+                                              </ul>
+                                              <li>
+                                                  <pre><code>401</code></pre>
+                                              </li>
+                                              <ul>
+                                                  <li>
+                                                      <pre>Response Body: </pre></li>
+                                                  <ul>
+                                                      <li>
+                                                          <pre><code>Access Denied</code></pre>
+                                                      </li>
+                                                  </ul>
+                                              </ul>
+                                              <li>
+                                                  <pre><code>405</code></pre>
+                                              </li>
+                                              <ul>
+                                                  <li>
+                                                      <pre>Response Body: </pre></li>
+                                                  <ul>
+                                                      <li>
+                                                          <pre><code>Method not allowed</code></pre>
+                                                      </li>
+                                                  </ul>
+                                              </ul>                             
+                                    </div>        
+                                    <li class="list-group-item">19. Get photo example</li>
+                                    <div>
+                                          <ul>
+                                              <li>Curl Command</li>
+                                              <pre><kbd>curl -v -s -c cookies.txt -b cookies.txt -e 127.0.0.1:8000/signin/ -H "Content-Type: application/json" -H "X-CSRFToken: {Generated Token}" 127.0.0.1:8000/api/photoExample/</kbd></pre>
+                                             <li>Command Parameters</li>
+                                             <ul>
+                                                <li>
+                                                     <pre>Request: <code>GET /api/photoExample/</code></pre>
+                                                </li>
+                                                <li>
+                                                     <pre>Headers: <code>Content-Type: application/json, X-CSRFToken: {Generated Token} </code></pre>
+                                                </li>
+                                            </ul>
+                                            <li>Response Codes</li>
+                                            <ul>
+                                                <li>
+                                                    <pre><code>200</code></pre>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <pre>Response Body: </pre></li>
+                                                    <ul>
+                                                        <li>
+                                                            <pre><code>content: the example</code></pre>
+                                                        </li>                                             
+                                                    </ul>
+                                                </ul>
+                                                <li>
+                                                    <pre><code>401</code></pre>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <pre>Response Body: </pre></li>
+                                                    <ul>
+                                                        <li>
+                                                            <pre><code>Access Denied</code></pre>
+                                                        </li>
+                                                    </ul>
+                                                </ul>
+                                                <li>
+                                                    <pre><code>405</code></pre>
+                                                </li>
+                                                <ul>
+                                                    <li>
+                                                        <pre>Response Body: </pre></li>
+                                                    <ul>
+                                                        <li>
+                                                            <pre><code>Method not allowed</code></pre>
+                                                        </li>
+                                                    </ul>
+                                                </ul>                             
+                                      </div>                                                                                                                                                                                            
           </ul>
       </div>
   </div>

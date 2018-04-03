@@ -39,3 +39,8 @@ TellMeStuff is a subscription based notification system. It allows the user to s
 - Facebook Messenger & SMS chat bot integration
 - Keeping everything mobile friendly (fully responsive)
 - HTTPS/SSL Certs
+
+
+### Demo Video
+
+[TellMeStuff Demo Video](https://youtu.be/Z2YZP2gkRAQ)

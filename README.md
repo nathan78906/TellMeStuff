@@ -47,4 +47,4 @@ TellMeStuff is a subscription based notification system. It allows the user to s
 
 ### API Documentation
 
-<https://tellmestuff.me/documentation/>
+[TellMeStuff Documentation](https://tellmestuff.me/documentation/)

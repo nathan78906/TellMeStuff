@@ -44,3 +44,7 @@ TellMeStuff is a subscription based notification system. It allows the user to s
 ### Demo Video
 
 [TellMeStuff Demo Video](https://youtu.be/Z2YZP2gkRAQ)
+
+### API Documentation
+
+<https://tellmestuff.me/documentation/>

@@ -1,0 +1,2 @@
+backend/static/backend/vendor/* linguist-vendored
+backend/templates/* linguist-language=Python
